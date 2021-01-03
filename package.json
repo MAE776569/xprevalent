@@ -1,0 +1,23 @@
+{
+  "name": "xprevalent",
+  "version": "1.0.0",
+  "description": "The next level library for creating express controllers",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MAE776569/xprevalent.git"
+  },
+  "keywords": [
+    "express",
+    "controller"
+  ],
+  "author": "Mohamed Ahmed <mohamed5qabeel@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MAE776569/xprevalent/issues"
+  },
+  "homepage": "https://github.com/MAE776569/xprevalent#readme"
+}

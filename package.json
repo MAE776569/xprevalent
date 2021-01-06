@@ -4,6 +4,7 @@
   "description": "The next level library for creating express controllers",
   "main": "dist/index.js",
   "scripts": {
+    "build": "tsc",
     "prettier:check": "prettier --check .",
     "prettier:fix": "prettier --write .",
     "lint": "eslint src/**"
@@ -23,6 +24,7 @@
   },
   "homepage": "https://github.com/MAE776569/xprevalent#readme",
   "devDependencies": {
+    "@types/express": "^4.17.9",
     "@typescript-eslint/eslint-plugin": "^4.12.0",
     "@typescript-eslint/parser": "^4.12.0",
     "eslint": "^7.17.0",

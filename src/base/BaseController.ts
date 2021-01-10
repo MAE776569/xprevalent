@@ -13,7 +13,6 @@ class BaseController {
   protected queryObjectName?: string = "data";
 
   // Query fields
-  protected queryFilter: FillableObject = {};
   protected selectedFields?: string[];
   protected excludedFields?: string[];
   protected sortBy?: FillableObject;
@@ -23,6 +22,10 @@ class BaseController {
     this.req = req;
     this.res = res;
     this.next = next;
+  }
+
+  protected getQueryFilter?(): FillableObject {
+    return {};
   }
 
   protected getContextObject(): Promise<FillableObject> {

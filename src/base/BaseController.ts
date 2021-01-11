@@ -1,8 +1,15 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction, Handler } from "express";
 import { Model, Document } from "mongoose";
-import { FillableObject } from "../types/base";
 
-class BaseController {
+export interface FillableObject {
+  [key: string]: any;
+}
+export type Constructor<T> = new (...args: any[]) => T;
+interface SortObject {
+  [key: string]: 1 | -1;
+}
+
+export default class BaseController {
   // Request Handler fields
   protected readonly req: Request;
   protected readonly res: Response;
@@ -15,8 +22,19 @@ class BaseController {
   // Query fields
   protected selectedFields?: string[];
   protected excludedFields?: string[];
-  protected sortBy?: FillableObject;
+  protected sortBy?: SortObject;
   protected populatedFields?: string[];
+
+  // View template
+  protected viewTemplate?: string;
+
+  // Express route handler
+  static get handle(): Handler[] {
+    return [
+      (req: Request, res: Response, next: NextFunction) =>
+        new this(req, res, next).handleRequest()
+    ];
+  }
 
   constructor(req: Request, res: Response, next: NextFunction) {
     this.req = req;
@@ -50,5 +68,3 @@ class BaseController {
     }
   }
 }
-
-export = BaseController;

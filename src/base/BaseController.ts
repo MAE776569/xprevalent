@@ -1,15 +1,8 @@
 import { Request, Response, NextFunction, Handler } from "express";
 import { Model, Document } from "mongoose";
+import { FillableObject, SortObject } from "../types/base";
 
-export interface FillableObject {
-  [key: string]: any;
-}
-export type Constructor<T> = new (...args: any[]) => T;
-interface SortObject {
-  [key: string]: 1 | -1;
-}
-
-export default class BaseController {
+class BaseController {
   // Request Handler fields
   protected readonly req: Request;
   protected readonly res: Response;
@@ -68,3 +61,5 @@ export default class BaseController {
     }
   }
 }
+
+export = BaseController;

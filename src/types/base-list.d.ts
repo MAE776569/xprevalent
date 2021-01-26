@@ -3,12 +3,10 @@ export interface PaginationSettings {
   limitParam: string;
   defaultLimit: number;
 }
-
 export interface PaginationObject {
   page: number;
   limit: number;
 }
-
 export interface PaginationMeta {
   totalDocs: number;
   totalPages: number;

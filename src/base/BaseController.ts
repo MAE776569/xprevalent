@@ -55,7 +55,7 @@ class BaseController {
         const queryResult = await this.getQueryResult();
         resObject[this.queryObjectName!] = queryResult;
       }
-      return this.res.send(contextObject);
+      return this.res.send(resObject);
     } catch (err) {
       return this.next(err);
     }

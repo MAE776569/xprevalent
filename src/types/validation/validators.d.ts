@@ -3,12 +3,14 @@ import * as Options from "./options";
 
 type CustomValidator = (input: any) => boolean;
 export type StandardValidator = (input: string, ...options: any[]) => boolean;
+export type Optional = { nullable?: boolean; checkFalsy?: boolean };
 
 export interface Validators<T> {
   // validation manipulation
   not(): T;
   withMessage(message: any): T;
   all(): T;
+  optional(Optional): T;
 
   // custom validators
   custom(validator: CustomValidator): T;

@@ -1,16 +1,20 @@
 import ValidationChain from "../../validators/ValidationChain";
 import ValidationResult from "../../validators/ValidationResult";
+import { Request } from "express";
+import { FillableObject } from "../base";
+
+export interface ValidationInput {
+  req: Request;
+  keys: string[];
+  validationResult: ValidationResult;
+}
 
 /* eslint-disable no-unused-vars */
 export type PipelineRunner = ({
   req,
   keys,
   validationResult
-}: {
-  req: Request;
-  keys: string[];
-  validationResult: ValidationResult;
-}) => void;
+}: ValidationInput) => void;
 
 export type Chain = PipelineRunner | ValidationChain<Chain>;
 export interface SchemaObject {
@@ -22,4 +26,10 @@ export interface ValidationObject {
   hasError: (name?: string) => boolean;
   getSanitizedValue: (name?: string) => any;
   getErrors: () => ValidationErrors;
+}
+
+export interface BaseValidation {
+  validate:
+    | ((req: Request) => ValidationObject)
+    | (({ req, keys, validationResult }: ValidationInput) => void);
 }

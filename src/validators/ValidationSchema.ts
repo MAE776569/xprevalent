@@ -1,8 +1,12 @@
-import { SchemaObject, ValidationObject } from "../types/validation/schema";
+import { Request } from "express";
+import {
+  BaseValidation,
+  SchemaObject,
+  ValidationObject
+} from "../types/validation/schema";
 import ArraySchema from "./ArraySchema";
 import ValidationResult from "./ValidationResult";
-
-class ValidationSchema {
+class ValidationSchema implements BaseValidation {
   private schema: SchemaObject;
   private validationResult: ValidationResult;
 
@@ -24,8 +28,7 @@ class ValidationSchema {
   private runValidation(
     deepSchema: SchemaObject | ArraySchema,
     req: Request,
-    keys: string[] = [],
-    deep: boolean = false
+    keys: string[] = []
   ): void {
     const validationKeys = Object.keys(deepSchema);
     validationKeys.forEach((item) => {
@@ -35,21 +38,21 @@ class ValidationSchema {
       if (validationFunc instanceof ArraySchema) {
         validationFunc.validate({
           req,
-          keys: deep ? [...keys, item] : [item],
+          keys: [...keys, item],
           validationResult: this.validationResult
         });
       }
 
       // if object, run deep validation
       else if (typeof validationFunc === "object") {
-        this.runValidation(validationFunc, req, [...keys, item], true);
+        this.runValidation(validationFunc, req, [...keys, item]);
       }
 
       // else run validation function
       else {
         validationFunc({
           req,
-          keys: deep ? [...keys, item] : [item],
+          keys: [...keys, item],
           validationResult: this.validationResult
         });
       }

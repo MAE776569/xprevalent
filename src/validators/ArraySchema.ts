@@ -1,10 +1,12 @@
 import { Request } from "express";
-import { BaseValidation, SchemaObject } from "../types/validation/schema";
+import {
+  BaseValidation,
+  SchemaObject,
+  ArraySchemaOptions
+} from "../types/validation/schema";
 import { ValidationLocation } from "../types/validator";
 import _ from "lodash";
 import ValidationResult from "./ValidationResult";
-
-// TODO: Validate for array length and othe options
 
 class ArraySchema implements BaseValidation {
   private readonly schema: SchemaObject;
@@ -14,15 +16,18 @@ class ArraySchema implements BaseValidation {
   private value!: any[];
   private req!: Request;
   private validationResult!: ValidationResult;
+  private options: ArraySchemaOptions;
 
   constructor(
     location: ValidationLocation,
     schema: SchemaObject,
-    message: string
+    message: string,
+    options: ArraySchemaOptions = {}
   ) {
     this.location = location;
     this.schema = schema;
     this.message = message;
+    this.options = options;
   }
 
   public validate({ req, keys, validationResult }): void {
@@ -32,6 +37,22 @@ class ArraySchema implements BaseValidation {
     this.value = _.get(this.req[this.location], this.keys);
 
     if (Array.isArray(this.value)) {
+      const { length, minLength, maxLength } = this.options;
+      let optionsError: string | undefined;
+
+      if (length && this.value.length !== length)
+        optionsError = `Array length must be equal ${length}`;
+      if (minLength && this.value.length < minLength)
+        optionsError = `Array length must be greater than or equal ${minLength}`;
+      if (maxLength && this.value.length > maxLength)
+        optionsError = `Array length must be less than or equal ${maxLength}`;
+
+      if (optionsError) {
+        const errorObject = _.setWith({}, this.keys, optionsError, Object);
+        this.validationResult.addError(errorObject);
+        return;
+      }
+
       this.value.forEach((_item, index) => {
         this.runValidation(_.cloneDeep(this.schema), this.req, [
           ...this.keys,
@@ -67,7 +88,7 @@ class ArraySchema implements BaseValidation {
         this.runValidation(validationFunc, req, [...keys, item]);
       }
 
-      // else if array of one object
+      // else run validation function
       else {
         validationFunc({
           req,

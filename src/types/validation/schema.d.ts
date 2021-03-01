@@ -33,3 +33,9 @@ export interface BaseValidation {
     | ((req: Request) => ValidationObject)
     | (({ req, keys, validationResult }: ValidationInput) => void);
 }
+
+export interface ArraySchemaOptions {
+  length?: number;
+  minLength?: number;
+  maxLength?: number;
+}

@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction, Handler } from "express";
 import { Model, Document } from "mongoose";
 import { FillableObject, SortObject } from "../types/base";
+import ValidationSchema from "../validators/ValidationSchema";
 
 class BaseController {
   // Request Handler fields
@@ -20,6 +21,9 @@ class BaseController {
 
   // View template
   protected viewTemplate?: string;
+
+  // Validation
+  protected validationSchema?: ValidationSchema;
 
   // Express route handler
   static get handle(): Handler[] {

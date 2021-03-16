@@ -25,6 +25,35 @@ class BaseListController extends BaseController {
 
   // Query fields
   private queryFilter: FillableObject = {};
+
+  constructor(req: Request, res: Response, next: NextFunction) {
+    super(req, res, next);
+    this.queryFilter = this.getQueryFilter();
+    this.pagination = this.getPaginationParams();
+  }
+
+  protected getPaginationParams(): PaginationObject {
+    if (this.pagination) return this.pagination;
+
+    const {
+      pageParam = "page",
+      limitParam = "limit",
+      defaultLimit = 10
+    } = this.paginateBy;
+
+    const page = +(this.req.query[pageParam] as string) || 1;
+    const limit =
+      +(this.req.query[limitParam] as string) || +defaultLimit || 10;
+
+    return {
+      page,
+      limit
+    };
+  }
+
+  protected getQueryFilter() {
+    return {};
+  }
 }
 
 export = BaseListController;

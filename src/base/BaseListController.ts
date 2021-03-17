@@ -54,6 +54,14 @@ class BaseListController extends BaseController {
   protected getQueryFilter() {
     return {};
   }
+
+  protected set totalPages(lastPage: number) {
+    this.lastPage = lastPage;
+  }
+
+  protected get totalPages(): number {
+    return this.lastPage;
+  }
 }
 
 export = BaseListController;

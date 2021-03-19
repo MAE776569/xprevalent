@@ -62,6 +62,25 @@ class BaseListController extends BaseController {
   protected get totalPages(): number {
     return this.lastPage;
   }
+
+  protected async getPaginationMeta(): Promise<PaginationMeta> {
+    const count = await this.model.countDocuments(this.queryFilter);
+    const { page, limit } = this.getPaginationParams();
+    const lastPage = Math.ceil(count / limit);
+    this.totalPages = lastPage;
+    const meta = {
+      totalDocs: count,
+      totalPages: lastPage,
+      page: page < lastPage ? page : lastPage,
+      limit,
+      hasNext: page < lastPage,
+      nextPage: page < lastPage ? page + 1 : null,
+      hasPrevious: page > 1,
+      previousPage:
+        page > 1 ? (page < lastPage ? page - 1 : lastPage - 1) : null
+    };
+    return meta;
+  }
 }
 
 export = BaseListController;

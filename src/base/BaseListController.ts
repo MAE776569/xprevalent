@@ -81,6 +81,15 @@ class BaseListController extends BaseController {
     };
     return meta;
   }
+
+  protected async getContextObject() {
+    if (this.usePagination) {
+      const meta = await this.getPaginationMeta();
+      return { meta };
+    } else {
+      return {};
+    }
+  }
 }
 
 export = BaseListController;

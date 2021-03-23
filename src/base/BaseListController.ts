@@ -90,6 +90,32 @@ class BaseListController extends BaseController {
       return {};
     }
   }
+
+  protected getQueryResult() {
+    const querySet = this.model.find(this.queryFilter);
+    if (this.usePagination) {
+      const { page, limit } = this.getPaginationParams();
+      const lastPage = this.totalPages;
+      const currentPage = page > lastPage ? lastPage : page;
+      querySet.skip((currentPage - 1) * limit).limit(limit);
+    }
+    if (this.populatedFields) {
+      const populatedPaths = this.populatedFields.join(" ");
+      querySet.populate(populatedPaths);
+    }
+    if (this.sortBy) {
+      querySet.sort(this.sortBy);
+    }
+    if (this.selectedFields) {
+      querySet.select(this.selectedFields);
+    } else if (this.excludedFields) {
+      const excludedPaths = this.excludedFields
+        .map((item) => `-${item}`)
+        .join(" ");
+      querySet.select(excludedPaths);
+    }
+    return querySet.exec();
+  }
 }
 
 export = BaseListController;

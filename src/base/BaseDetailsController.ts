@@ -29,6 +29,29 @@ class BaseDetailsController extends BaseController {
   protected getQueryFilter() {
     return {};
   }
+
+  protected getQueryResult() {
+    let querySet;
+    if (this.findOne) {
+      querySet = this.model.findOne(this.queryFilter);
+    } else {
+      const id = this.req.params[this.keyParam];
+      querySet = this.model.findById(id);
+    }
+    if (this.populatedFields) {
+      const populatedPaths = this.populatedFields.join(" ");
+      querySet.populate(populatedPaths);
+    }
+    if (this.selectedFields) {
+      querySet.select(this.selectedFields);
+    } else if (this.excludedFields) {
+      const excludedPaths = this.excludedFields
+        .map((item) => `-${item}`)
+        .join(" ");
+      querySet.select(excludedPaths);
+    }
+    return querySet.exec();
+  }
 }
 
 export = BaseDetailsController;

@@ -1,8 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { Model, Document } from "mongoose";
 import { FillableObject } from "../types/base";
-// import { ValidationSchema } from "../validators";
-// import { validateParam } from "../validators";
+import { ValidationSchema, validateParam } from "../validators";
 import BaseController from "./BaseController";
 
 class BaseDetailsController extends BaseController {
@@ -12,7 +11,7 @@ class BaseDetailsController extends BaseController {
 
   // Params and validation
   protected keyParam: string = "id";
-  // private validation: ValidationSchema;
+  protected validationSchema: ValidationSchema;
 
   // Query fields
   protected findOne: boolean = false;
@@ -20,10 +19,10 @@ class BaseDetailsController extends BaseController {
 
   constructor(req: Request, res: Response, next: NextFunction) {
     super(req, res, next);
-    // this.validation = new ValidationSchema({
-    //   [this.keyParam]: validateParam().isMongoId()
-    // });
     this.queryFilter = this.getQueryFilter();
+    this.validationSchema = new ValidationSchema({
+      [this.keyParam]: (<any>validateParam()).isMongoId()
+    });
   }
 
   protected getQueryFilter() {

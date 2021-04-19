@@ -1,5 +1,5 @@
 import BaseDetailsController from "../../base/BaseDetailsController";
-import { Constructor } from "../../types/base";
+import { Constructor } from "../../types/controllers/base";
 
 function ViewDetailsControllerMixin<
   T extends Constructor<BaseDetailsController>

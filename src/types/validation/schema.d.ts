@@ -1,7 +1,7 @@
 import ValidationChain from "../../validators/ValidationChain";
 import ValidationResult from "../../validators/ValidationResult";
 import { Request } from "express";
-import { FillableObject } from "../base";
+import { FillableObject } from "../controllers/base";
 
 export interface ValidationInput {
   req: Request;

@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from "express";
 import { Model, Document } from "mongoose";
-import { FillableObject } from "../types/base";
+import { FillableObject } from "../types/controllers/base";
 import {
   PaginationMeta,
   PaginationObject,
   PaginationSettings
-} from "../types/base-list";
+} from "../types/controllers/base-list";
 import BaseController from "./BaseController";
 
 class BaseListController extends BaseController {

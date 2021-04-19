@@ -1,5 +1,5 @@
 import BaseController from "../base/BaseController";
-import { Constructor } from "../types/base";
+import { Constructor } from "../types/controllers/base";
 
 function ViewControllerMixin<T extends Constructor<BaseController>>(
   BaseClass: T

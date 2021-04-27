@@ -11,7 +11,7 @@ function ApiControllerMixin<T extends Constructor<BaseController>>(
         const resObject = { ...contextObject };
         if (this.model) {
           const queryResult = await this.getQueryResult();
-          resObject[this.queryObjectName!] = queryResult;
+          resObject[this.queryObjectName] = queryResult;
         }
         return this.res.json(resObject);
       } catch (err) {

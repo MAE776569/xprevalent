@@ -9,9 +9,8 @@ import {
 import BaseController from "./BaseController";
 
 class BaseListController extends BaseController {
-  // Model and query result object name
+  // Model
   protected readonly model!: Model<Document>;
-  protected queryObjectName: string = "data";
 
   // Pagination data
   protected usePagination: boolean = false;

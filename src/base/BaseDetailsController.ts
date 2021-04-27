@@ -5,9 +5,8 @@ import { ValidationSchema, validateParam } from "../validators";
 import BaseController from "./BaseController";
 
 class BaseDetailsController extends BaseController {
-  // Model and query result object name
+  // Model
   protected readonly model!: Model<Document>;
-  protected queryObjectName: string = "data";
 
   // Params and validation
   protected keyParam: string = "id";

@@ -4,7 +4,7 @@ import { Constructor } from "../../types/controllers/base";
 function ViewDetailsControllerMixin<
   T extends Constructor<BaseDetailsController>
 >(BaseClass: T): T {
-  return class ViewController extends BaseClass {
+  return class ViewDetailsController extends BaseClass {
     // View template
     protected viewTemplate!: string;
 

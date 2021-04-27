@@ -11,7 +11,7 @@ class BaseController {
 
   // Model and query result object name
   protected readonly model?: Model<Document>;
-  protected queryObjectName?: string = "data";
+  protected queryObjectName: string = "data";
 
   // Query fields
   protected selectedFields?: string[];

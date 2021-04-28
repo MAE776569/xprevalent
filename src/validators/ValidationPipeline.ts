@@ -1,11 +1,14 @@
 import Sanitizer from "./Sanitizer";
 import Validator from "./Validator";
 import { Request } from "express";
-import { ValidationLocation } from "../types/validator";
 import ValidationResult from "./ValidationResult";
 import * as _ from "lodash";
 import { Optional } from "../types/validation/validators";
-import { ArraySchemaOptions, SchemaObject } from "../types/validation/schema";
+import {
+  ArraySchemaOptions,
+  SchemaObject,
+  ValidationLocation
+} from "../types/validation/schema";
 import ArraySchema from "./ArraySchema";
 
 class ValidationPipeline {

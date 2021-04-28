@@ -2,10 +2,10 @@ import { Request } from "express";
 import {
   BaseValidation,
   SchemaObject,
-  ArraySchemaOptions
+  ArraySchemaOptions,
+  ValidationLocation
 } from "../types/validation/schema";
-import { ValidationLocation } from "../types/validator";
-import _ from "lodash";
+import * as _ from "lodash";
 import ValidationResult from "./ValidationResult";
 
 class ArraySchema implements BaseValidation {

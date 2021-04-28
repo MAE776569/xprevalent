@@ -4,7 +4,7 @@ import {
   StandardValidator,
   Validators
 } from "../types/validation/validators";
-import validator from "validator";
+import * as validator from "validator";
 import * as Options from "../types/validation/options";
 import Validator from "./Validator";
 import Sanitizer from "./Sanitizer";

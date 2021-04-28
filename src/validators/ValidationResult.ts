@@ -1,4 +1,4 @@
-import { FillableObject } from "../types/controllers/base";
+import { FillableObject } from "../types/controllers/generic";
 import { ValidationErrors } from "../types/validation/schema";
 import * as _ from "lodash";
 

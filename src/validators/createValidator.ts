@@ -1,8 +1,11 @@
-import { ValidationLocation } from "../types/validator";
 import bindObject from "../utils/bindObject";
 import ValidationChain from "./ValidationChain";
 import ValidationPipeline from "./ValidationPipeline";
-import { Chain, ValidationInput } from "../types/validation/schema";
+import {
+  Chain,
+  ValidationInput,
+  ValidationLocation
+} from "../types/validation/schema";
 
 function createValidator(
   location: ValidationLocation,

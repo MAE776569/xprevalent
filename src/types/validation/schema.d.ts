@@ -1,7 +1,7 @@
 import ValidationChain from "../../validators/ValidationChain";
 import ValidationResult from "../../validators/ValidationResult";
 import { Request } from "express";
-import { FillableObject } from "../controllers/base";
+import { FillableObject } from "../controllers/generic";
 
 export interface ValidationInput {
   req: Request;
@@ -39,3 +39,5 @@ export interface ArraySchemaOptions {
   minLength?: number;
   maxLength?: number;
 }
+
+export type ValidationLocation = "body" | "params" | "query";

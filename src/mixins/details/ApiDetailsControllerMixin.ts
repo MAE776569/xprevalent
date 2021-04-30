@@ -1,5 +1,5 @@
-import BaseDetailsController from "../../base/BaseDetailsController";
-import { Constructor } from "../../types/controllers/base";
+import BaseDetailsController from "../../base/generic/BaseDetailsController";
+import { Constructor } from "../../types/controllers/generic";
 
 function ApiDetailsControllerMixin<
   T extends Constructor<BaseDetailsController>

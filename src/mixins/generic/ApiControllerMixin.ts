@@ -1,5 +1,5 @@
-import BaseController from "../base/BaseController";
-import { Constructor } from "../types/controllers/base";
+import BaseController from "../../base/generic/BaseController";
+import { Constructor } from "../../types/controllers/generic";
 
 function ApiControllerMixin<T extends Constructor<BaseController>>(
   BaseClass: T

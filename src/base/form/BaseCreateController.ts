@@ -1,22 +1,21 @@
-import { Request, Response, NextFunction } from "express";
 import { Model, Document } from "mongoose";
-import { FillableObject } from "../../types/controllers/base";
+import { FillableObject } from "../../types/controllers/generic";
 import { ValidationObject } from "../../types/validation/schema";
 import { ValidationSchema } from "../../validators";
-import BaseController from "../BaseController";
+import BaseController from "../generic/BaseController";
 
 class BaseCreateController extends BaseController {
-  // Model and query result object name
+  // Model
   protected readonly model!: Model<Document>;
-  protected queryObjectName: string = "data";
 
   // Validation
   protected validationSchema!: ValidationSchema;
-  protected validationResult: ValidationObject;
+  private validation!: ValidationObject;
 
-  constructor(req: Request, res: Response, next: NextFunction) {
-    super(req, res, next);
-    this.validationResult = this.validationSchema.validate(req);
+  protected get validationResult(): ValidationObject {
+    if (!this.validation)
+      this.validation = this.validationSchema.validate(this.req);
+    return this.validation;
   }
 
   protected getDocument(): FillableObject {

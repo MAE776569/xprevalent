@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction, Handler } from "express";
 import { Model, Document } from "mongoose";
-import { FillableObject, SortObject } from "../types/controllers/base";
-import ValidationSchema from "../validators/ValidationSchema";
+import { FillableObject, SortObject } from "../../types/controllers/generic";
+import ValidationSchema from "../../validators/ValidationSchema";
 
 class BaseController {
   // Request Handler fields

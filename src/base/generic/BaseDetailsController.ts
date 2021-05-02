@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { Model, Document } from "mongoose";
-import { FillableObject } from "../types/controllers/base";
-import { ValidationSchema, validateParam } from "../validators";
+import { FillableObject } from "../../types/controllers/generic";
+import { ValidationSchema, validateParam } from "../../validators";
 import BaseController from "./BaseController";
 
 class BaseDetailsController extends BaseController {

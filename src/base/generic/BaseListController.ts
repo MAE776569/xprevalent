@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from "express";
 import { Model, Document } from "mongoose";
-import { FillableObject } from "../types/controllers/base";
+import { FillableObject } from "../../types/controllers/generic";
 import {
   PaginationMeta,
   PaginationObject,
   PaginationSettings
-} from "../types/controllers/base-list";
+} from "../../types/controllers/list";
 import BaseController from "./BaseController";
 
 class BaseListController extends BaseController {
@@ -19,7 +19,7 @@ class BaseListController extends BaseController {
     limitParam: "limit",
     defaultLimit: 10
   };
-  protected pagination!: PaginationObject;
+  private pagination!: PaginationObject;
   private lastPage: number = 1;
 
   // Query fields

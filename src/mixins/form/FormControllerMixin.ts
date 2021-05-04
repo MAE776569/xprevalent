@@ -9,17 +9,24 @@ function FormControllerMixin<T extends Constructor<BaseController>>(
     protected viewTemplate!: string;
     // Redirect urls
     protected successUrl: string;
-    protected failureUrl: string;
     protected validationResult!: ValidationObject;
 
     constructor(...params: any[]) {
       super(...params);
       this.successUrl = this.getSuccessUrl();
-      this.failureUrl = this.req.originalUrl;
     }
 
     protected getSuccessUrl(): string {
       return this.req.originalUrl;
+    }
+
+    protected formValid(): void {
+      return this.res.redirect(this.successUrl);
+    }
+
+    protected formInvalid(): void {
+      const errors = this.validationResult.getErrors();
+      return this.res.render(this.viewTemplate, { errors });
     }
   };
 }

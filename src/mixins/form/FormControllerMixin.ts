@@ -17,7 +17,9 @@ function FormControllerMixin<T extends Constructor<BaseController>>(
     }
 
     protected getSuccessUrl(): string {
-      return this.req.originalUrl;
+      return typeof this.successUrl === "string" && this.successUrl.length !== 0
+        ? this.successUrl
+        : this.req.originalUrl;
     }
 
     protected formValid(): void {

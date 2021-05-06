@@ -30,6 +30,20 @@ function FormControllerMixin<T extends Constructor<BaseController>>(
       const errors = this.validationResult.getErrors();
       return this.res.render(this.viewTemplate, { errors });
     }
+
+    protected async handleRequest() {
+      try {
+        if (this.validationResult.hasError()) return this.formInvalid();
+
+        const queryResult = await this.getQueryResult();
+        const contextObject = await this.getContextObject();
+        const resObject = { ...contextObject };
+        resObject[this.queryObjectName] = queryResult;
+        return this.formValid();
+      } catch (err) {
+        return this.next(err);
+      }
+    }
   };
 }
 

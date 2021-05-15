@@ -19,6 +19,24 @@ class BaseEditController extends BaseController {
   protected updateOne: boolean = false;
   protected upsert: boolean = false;
   private queryFilter: FillableObject = {};
+
+  constructor(req: Request, res: Response, next: NextFunction) {
+    super(req, res, next);
+    this.queryFilter = this.getQueryFilter();
+    this.paramValidation = new ValidationSchema({
+      [this.keyParam]: (<any>validateParam()).isMongoId()
+    });
+  }
+
+  protected get validationResult(): ValidationObject {
+    if (!this.validation)
+      this.validation = this.validationSchema.validate(this.req);
+    return this.validation;
+  }
+
+  protected getQueryFilter() {
+    return {};
+  }
 }
 
 export = BaseEditController;

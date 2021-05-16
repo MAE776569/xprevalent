@@ -37,6 +37,10 @@ class BaseEditController extends BaseController {
   protected getQueryFilter() {
     return {};
   }
+
+  protected getUpdateSet(): FillableObject {
+    return this.validationResult.getSanitizedValue();
+  }
 }
 
 export = BaseEditController;

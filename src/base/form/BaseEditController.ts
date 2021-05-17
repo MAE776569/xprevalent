@@ -41,6 +41,36 @@ class BaseEditController extends BaseController {
   protected getUpdateSet(): FillableObject {
     return this.validationResult.getSanitizedValue();
   }
+
+  protected getQueryResult() {
+    let querySet;
+    const updateSet = this.getUpdateSet();
+    const options: FillableObject = { new: true };
+    if (this.upsert) options.upsert = this.upsert;
+    if (this.updateOne) {
+      querySet = this.model.findOneAndUpdate(
+        this.queryFilter,
+        updateSet,
+        options
+      );
+    } else {
+      const id = this.req.params[this.keyParam];
+      querySet = this.model.findByIdAndUpdate(id, updateSet, options);
+    }
+    if (this.populatedFields) {
+      const populatedPaths = this.populatedFields.join(" ");
+      querySet.populate(populatedPaths);
+    }
+    if (this.selectedFields) {
+      querySet.select(this.selectedFields);
+    } else if (this.excludedFields) {
+      const excludedPaths = this.excludedFields
+        .map((item) => `-${item}`)
+        .join(" ");
+      querySet.select(excludedPaths);
+    }
+    return querySet.exec();
+  }
 }
 
 export = BaseEditController;

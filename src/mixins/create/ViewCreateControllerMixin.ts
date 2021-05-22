@@ -8,13 +8,15 @@ function ViewCreateControllerMixin<
   return class ViewCreateController extends FormControllerMixin(BaseClass) {
     async handleRequest() {
       try {
-        if (this.validationResult.hasError()) return this.formInvalid();
+        const contextObject = await this.getContextObject();
+        if (this.validationResult.hasError()) {
+          return this.formInvalid(contextObject);
+        }
 
         const queryResult = await this.getQueryResult();
-        const contextObject = await this.getContextObject();
         const resObject = { ...contextObject };
         resObject[this.queryObjectName] = queryResult;
-        return this.formValid();
+        return this.formValid(resObject);
       } catch (err) {
         return this.next(err);
       }

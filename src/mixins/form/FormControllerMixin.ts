@@ -1,4 +1,4 @@
-import { Constructor } from "../../types/controllers/generic";
+import { Constructor, FillableObject } from "../../types/controllers/generic";
 import { ViewFormControllerType } from "../../types/controllers/form";
 import BaseController from "../../base/generic/BaseController";
 import { ValidationObject } from "../../types/validation/schema";
@@ -27,9 +27,9 @@ function FormControllerMixin<T extends Constructor<BaseController>>(
       return this.res.redirect(this.successUrl);
     }
 
-    protected formInvalid(): void {
+    protected formInvalid(contextObject: FillableObject): void {
       const errors = this.validationResult.getErrors();
-      return this.res.render(this.viewTemplate, { errors });
+      return this.res.render(this.viewTemplate, { errors, ...contextObject });
     }
   }
 

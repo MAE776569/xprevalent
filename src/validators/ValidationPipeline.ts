@@ -84,7 +84,9 @@ class ValidationPipeline {
 
     if (this.optional) {
       const isOptionalValue = this.isOptional();
-      if (isOptionalValue) this.isValid = true;
+      if (isOptionalValue) {
+        this.isValid = true;
+      }
     }
 
     if (!this.isValid) {

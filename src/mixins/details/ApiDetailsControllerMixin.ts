@@ -8,12 +8,14 @@ function ApiDetailsControllerMixin<
     protected async handleRequest() {
       try {
         const validationResult = this.validationSchema.validate(this.req);
-        if (validationResult.hasError(this.keyParam) && !this.findOne)
+        if (validationResult.hasError(this.keyParam) && !this.findOne) {
           return this.res.status(404).json({ message: "Invalid id" });
+        }
 
         const queryResult = await this.getQueryResult();
-        if (!queryResult)
+        if (!queryResult) {
           return this.res.status(404).json({ message: "Not found" });
+        }
 
         const contextObject = await this.getContextObject();
         const resObject = { ...contextObject };

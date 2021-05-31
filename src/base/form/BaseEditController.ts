@@ -29,8 +29,9 @@ class BaseEditController extends BaseController {
   }
 
   protected get validationResult(): ValidationObject {
-    if (!this.validation)
+    if (!this.validation) {
       this.validation = this.validationSchema.validate(this.req);
+    }
     return this.validation;
   }
 
@@ -46,7 +47,9 @@ class BaseEditController extends BaseController {
     let querySet;
     const updateSet = this.getUpdateSet();
     const options: FillableObject = { new: true };
-    if (this.upsert) options.upsert = this.upsert;
+    if (this.upsert) {
+      options.upsert = this.upsert;
+    }
     if (this.updateOne) {
       querySet = this.model.findOneAndUpdate(
         this.queryFilter,

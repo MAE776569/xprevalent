@@ -9,7 +9,9 @@ class Sanitizer {
 
   constructor(sanitizer: StandardSanitizer | CustomSanitizer, options?: any[]) {
     this.sanitizer = sanitizer;
-    if (options) this.options = options;
+    if (options) {
+      this.options = options;
+    }
   }
 
   public run(value: any): any {

@@ -9,13 +9,8 @@ function FormControllerMixin<T extends Constructor<BaseController>>(
   class FormController extends BaseClass {
     protected viewTemplate!: string;
     // Redirect urls
-    protected successUrl: string;
+    protected successUrl?: string;
     protected validationResult!: ValidationObject;
-
-    constructor(...params: any[]) {
-      super(...params);
-      this.successUrl = this.getSuccessUrl();
-    }
 
     protected getSuccessUrl(): string {
       return typeof this.successUrl === "string" && this.successUrl.length !== 0
@@ -24,7 +19,8 @@ function FormControllerMixin<T extends Constructor<BaseController>>(
     }
 
     protected formValid(): void {
-      return this.res.redirect(this.successUrl);
+      const successUrl = this.getSuccessUrl();
+      return this.res.redirect(successUrl);
     }
 
     protected formInvalid(contextObject: FillableObject): void {

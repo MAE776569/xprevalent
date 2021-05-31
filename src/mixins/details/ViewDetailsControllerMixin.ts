@@ -11,11 +11,14 @@ function ViewDetailsControllerMixin<
     protected async handleRequest() {
       try {
         const validationResult = this.validationSchema.validate(this.req);
-        if (validationResult.hasError(this.keyParam) && !this.findOne)
+        if (validationResult.hasError(this.keyParam) && !this.findOne) {
           return this.res.sendStatus(404);
+        }
 
         const queryResult = await this.getQueryResult();
-        if (!queryResult) return this.res.sendStatus(404);
+        if (!queryResult) {
+          return this.res.sendStatus(404);
+        }
 
         const contextObject = await this.getContextObject();
         const locals = { ...contextObject };

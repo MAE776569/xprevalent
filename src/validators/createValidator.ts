@@ -12,7 +12,9 @@ function createValidator(
   message?: string
 ): Chain {
   const pipeline = new ValidationPipeline(location);
-  if (message) pipeline.setMessage(message);
+  if (message) {
+    pipeline.setMessage(message);
+  }
   const pipelineRunner = function ({
     req,
     keys,

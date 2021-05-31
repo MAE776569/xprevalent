@@ -32,7 +32,9 @@ class BaseListController extends BaseController {
   }
 
   protected getPaginationParams(): PaginationObject {
-    if (this.pagination) return this.pagination;
+    if (this.pagination) {
+      return this.pagination;
+    }
 
     const {
       pageParam = "page",

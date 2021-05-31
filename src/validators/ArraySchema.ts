@@ -40,12 +40,15 @@ class ArraySchema implements BaseValidation {
       const { length, minLength, maxLength } = this.options;
       let optionsError: string | undefined;
 
-      if (length && this.value.length !== length)
+      if (length && this.value.length !== length) {
         optionsError = `Array length must be equal ${length}`;
-      if (minLength && this.value.length < minLength)
+      }
+      if (minLength && this.value.length < minLength) {
         optionsError = `Array length must be greater than or equal ${minLength}`;
-      if (maxLength && this.value.length > maxLength)
+      }
+      if (maxLength && this.value.length > maxLength) {
         optionsError = `Array length must be less than or equal ${maxLength}`;
+      }
 
       if (optionsError) {
         const errorObject = _.setWith({}, this.keys, optionsError, Object);

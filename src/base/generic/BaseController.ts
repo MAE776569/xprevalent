@@ -3,6 +3,11 @@ import { Model, Document } from "mongoose";
 import { FillableObject, SortObject } from "../../types/controllers/generic";
 import ValidationSchema from "../../validators/ValidationSchema";
 
+/**
+ * Generic controller that returns a response
+ *
+ * @class BaseController
+ */
 class BaseController {
   // Request Handler fields
   protected readonly req: Request;

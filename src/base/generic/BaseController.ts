@@ -9,13 +9,49 @@ import ValidationSchema from "../../validators/ValidationSchema";
  * @class BaseController
  */
 class BaseController {
-  // Request Handler fields
+  /**
+   * Request object
+   *
+   * @protected
+   * @type {Request}
+   * @memberof BaseController
+   */
   protected readonly req: Request;
+
+  /**
+   * Response object
+   *
+   * @protected
+   * @type {Response}
+   * @memberof BaseController
+   */
   protected readonly res: Response;
+
+  /**
+   * Next function which, when invoked, executes the middleware succeeding the current middleware
+   *
+   * @protected
+   * @type {NextFunction}
+   * @memberof BaseController
+   */
   protected readonly next: NextFunction;
 
-  // Model and query result object name
+  /**
+   * Mongoose model
+   *
+   * @protected
+   * @type {Model<Document>}
+   * @memberof BaseController
+   */
   protected readonly model?: Model<Document>;
+
+  /**
+   * The name of the object returned by querying database
+   *
+   * @protected
+   * @type {string}
+   * @memberof BaseController
+   */
   protected queryObjectName: string = "data";
 
   // Query fields
@@ -24,13 +60,32 @@ class BaseController {
   protected sortBy?: SortObject;
   protected populatedFields?: string[];
 
-  // View template
+  /**
+   * View template to be rendered
+   *
+   * @protected
+   * @type {string}
+   * @memberof BaseController
+   */
   protected viewTemplate?: string;
 
-  // Validation
+  /**
+   * Validation schema
+   *
+   * @protected
+   * @type {ValidationSchema}
+   * @memberof BaseController
+   */
   protected validationSchema?: ValidationSchema;
 
-  // Express route handler
+  /**
+   * The controller handler for handling the request
+   *
+   * @readonly
+   * @static
+   * @type {Handler[]}
+   * @memberof BaseController
+   */
   static get handle(): Handler[] {
     return [
       (req: Request, res: Response, next: NextFunction) =>
@@ -38,6 +93,13 @@ class BaseController {
     ];
   }
 
+  /**
+   * Creates an instance of BaseController.
+   * @param {Request} req - The request object
+   * @param {Response} res - The response object
+   * @param {NextFunction} next - next function
+   * @memberof BaseController
+   */
   constructor(req: Request, res: Response, next: NextFunction) {
     this.req = req;
     this.res = res;

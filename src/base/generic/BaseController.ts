@@ -106,18 +106,46 @@ class BaseController {
     this.next = next;
   }
 
+  /**
+   * Returns the query filter object used for filtering database
+   *
+   * @protected
+   * @returns {FillableObject} the object used to filter database query
+   * @memberof BaseController
+   */
   protected getQueryFilter?(): FillableObject {
     return {};
   }
 
+  /**
+   * Returns a promise of an object that contains the local variables of the response
+   *
+   * @protected
+   * @returns {Promise<FillableObject>} a promise of an object
+   * @memberof BaseController
+   */
   protected getContextObject(): Promise<FillableObject> {
     return Promise.resolve({});
   }
 
+  /**
+   * Returns a promise of the result of querying the database
+   *
+   * @protected
+   * @returns {(Promise<Document[] | Document | null>)} a promise of set of documents, document, or null
+   * @memberof BaseController
+   */
   protected getQueryResult(): Promise<Document[] | Document | null> {
     return Promise.resolve([]);
   }
 
+  /**
+   * Handles the request and returns a response
+   *
+   * @protected
+   * @returns {(Promise<Response | void>)} a promise of a response or calls the next error handler
+   * @memberof BaseController
+   */
   protected async handleRequest(): Promise<Response | void> {
     try {
       const contextObject = await this.getContextObject();

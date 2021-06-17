@@ -1,37 +1,18 @@
-import { Request, Response, NextFunction } from "express";
 import { Model, Document } from "mongoose";
-import { FillableObject } from "../../types/controllers/generic";
-import { ValidationSchema, validateParam } from "../../validators";
-import BaseController from "../generic/BaseController";
+import SingleObjectController from "../generic/SingleObjectController";
 
-class BaseDeleteController extends BaseController {
+class BaseDeleteController extends SingleObjectController {
   // Model
   protected readonly model!: Model<Document>;
 
-  // Params and validation
-  protected keyParam: string = "id";
-  protected validationSchema: ValidationSchema;
-
   // Query fields
   protected deleteOne: boolean = false;
-  private queryFilter: FillableObject = {};
-
-  constructor(req: Request, res: Response, next: NextFunction) {
-    super(req, res, next);
-    this.queryFilter = this.getQueryFilter();
-    this.validationSchema = new ValidationSchema({
-      [this.keyParam]: (<any>validateParam()).isMongoId()
-    });
-  }
-
-  protected getQueryFilter() {
-    return {};
-  }
 
   protected getQueryResult() {
     let querySet;
     if (this.deleteOne) {
-      querySet = this.model.findOneAndDelete(this.queryFilter);
+      const queryFilter = this.getQueryFilter();
+      querySet = this.model.findOneAndDelete(queryFilter);
     } else {
       const id = this.req.params[this.keyParam];
       querySet = this.model.findByIdAndDelete(id);

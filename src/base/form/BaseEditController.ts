@@ -1,43 +1,14 @@
-import { Request, Response, NextFunction } from "express";
 import { Model, Document } from "mongoose";
 import { FillableObject } from "../../types/controllers/generic";
-import { ValidationObject } from "../../types/validation/schema";
-import { ValidationSchema, validateParam } from "../../validators";
-import BaseController from "../generic/BaseController";
+import SingleObjectController from "../generic/SingleObjectController";
 
-class BaseEditController extends BaseController {
+class BaseEditController extends SingleObjectController {
   // Model
   protected readonly model!: Model<Document>;
-
-  // Params and validation
-  protected keyParam: string = "id";
-  protected paramValidation: ValidationSchema;
-  protected validationSchema!: ValidationSchema;
-  private validation!: ValidationObject;
 
   // Query fields
   protected updateOne: boolean = false;
   protected upsert: boolean = false;
-  private queryFilter: FillableObject = {};
-
-  constructor(req: Request, res: Response, next: NextFunction) {
-    super(req, res, next);
-    this.queryFilter = this.getQueryFilter();
-    this.paramValidation = new ValidationSchema({
-      [this.keyParam]: (<any>validateParam()).isMongoId()
-    });
-  }
-
-  protected get validationResult(): ValidationObject {
-    if (!this.validation) {
-      this.validation = this.validationSchema.validate(this.req);
-    }
-    return this.validation;
-  }
-
-  protected getQueryFilter() {
-    return {};
-  }
 
   protected getUpdateSet(): FillableObject {
     return this.validationResult.getSanitizedValue();
@@ -51,11 +22,8 @@ class BaseEditController extends BaseController {
       options.upsert = this.upsert;
     }
     if (this.updateOne) {
-      querySet = this.model.findOneAndUpdate(
-        this.queryFilter,
-        updateSet,
-        options
-      );
+      const queryFilter = this.getQueryFilter();
+      querySet = this.model.findOneAndUpdate(queryFilter, updateSet, options);
     } else {
       const id = this.req.params[this.keyParam];
       querySet = this.model.findByIdAndUpdate(id, updateSet, options);

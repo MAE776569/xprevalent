@@ -1,37 +1,18 @@
-import { Request, Response, NextFunction } from "express";
 import { Model, Document } from "mongoose";
-import { FillableObject } from "../../types/controllers/generic";
-import { ValidationSchema, validateParam } from "../../validators";
-import BaseController from "./BaseController";
+import SingleObjectController from "./SingleObjectController";
 
-class BaseDetailsController extends BaseController {
+class BaseDetailsController extends SingleObjectController {
   // Model
   protected readonly model!: Model<Document>;
 
-  // Params and validation
-  protected keyParam: string = "id";
-  protected validationSchema: ValidationSchema;
-
   // Query fields
   protected findOne: boolean = false;
-  private queryFilter: FillableObject = {};
-
-  constructor(req: Request, res: Response, next: NextFunction) {
-    super(req, res, next);
-    this.queryFilter = this.getQueryFilter();
-    this.validationSchema = new ValidationSchema({
-      [this.keyParam]: (<any>validateParam()).isMongoId()
-    });
-  }
-
-  protected getQueryFilter() {
-    return {};
-  }
 
   protected getQueryResult() {
     let querySet;
     if (this.findOne) {
-      querySet = this.model.findOne(this.queryFilter);
+      const queryFilter = this.getQueryFilter();
+      querySet = this.model.findOne(queryFilter);
     } else {
       const id = this.req.params[this.keyParam];
       querySet = this.model.findById(id);

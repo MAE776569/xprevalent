@@ -7,8 +7,7 @@ function ApiEditControllerMixin<T extends Constructor<BaseEditController>>(
   return class ApiEditController extends BaseClass {
     protected async handleRequest() {
       try {
-        const paramValidationResult = this.paramValidation.validate(this.req);
-        if (paramValidationResult.hasError(this.keyParam) && !this.updateOne) {
+        if (this.validateKeyParam() && !this.updateOne) {
           return this.res.status(404).json({ message: "Invalid id" });
         }
 

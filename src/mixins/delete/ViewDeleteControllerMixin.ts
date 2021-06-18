@@ -8,8 +8,7 @@ function ViewDeleteControllerMixin<
   return class ViewDeleteController extends FormControllerMixin(BaseClass) {
     async handleRequest() {
       try {
-        const validationResult = this.validationSchema.validate(this.req);
-        if (validationResult.hasError(this.keyParam) && !this.deleteOne) {
+        if (this.validateKeyParam() && !this.deleteOne) {
           return this.res.sendStatus(404);
         }
 

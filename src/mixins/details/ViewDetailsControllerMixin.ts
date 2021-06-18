@@ -10,8 +10,7 @@ function ViewDetailsControllerMixin<
 
     protected async handleRequest() {
       try {
-        const validationResult = this.validationSchema.validate(this.req);
-        if (validationResult.hasError(this.keyParam) && !this.findOne) {
+        if (this.validateKeyParam() && !this.findOne) {
           return this.res.sendStatus(404);
         }
 

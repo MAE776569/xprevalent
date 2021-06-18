@@ -7,8 +7,7 @@ function ApiDeleteControllerMixin<T extends Constructor<BaseDeleteController>>(
   return class ApiDeleteController extends BaseClass {
     protected async handleRequest() {
       try {
-        const validationResult = this.validationSchema.validate(this.req);
-        if (validationResult.hasError(this.keyParam) && !this.deleteOne) {
+        if (this.validateKeyParam() && !this.deleteOne) {
           return this.res.status(404).json({ message: "Invalid id" });
         }
 

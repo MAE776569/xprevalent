@@ -8,8 +8,7 @@ function ViewEditControllerMixin<T extends Constructor<ViewFormControllerType>>(
   return class ViewEditController extends FormControllerMixin(BaseClass) {
     async handleRequest() {
       try {
-        const paramValidationResult = this.paramValidation.validate(this.req);
-        if (paramValidationResult.hasError(this.keyParam) && !this.updateOne) {
+        if (this.validateKeyParam() && !this.updateOne) {
           return this.res.sendStatus(404);
         }
 

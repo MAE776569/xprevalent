@@ -7,8 +7,7 @@ function ApiDetailsControllerMixin<
   return class ApiDetailsController extends BaseClass {
     protected async handleRequest() {
       try {
-        const validationResult = this.validationSchema.validate(this.req);
-        if (validationResult.hasError(this.keyParam) && !this.findOne) {
+        if (this.validateKeyParam() && !this.findOne) {
           return this.res.status(404).json({ message: "Invalid id" });
         }
 

@@ -54,10 +54,40 @@ class BaseController {
    */
   protected queryObjectName: string = "data";
 
-  // Query fields
+  /**
+   * Specifies which document fields to include
+   *
+   * @protected
+   * @type {string[]}
+   * @memberof BaseController
+   */
   protected selectedFields?: string[];
+
+  /**
+   * Specifies which document fields to exclude
+   *
+   * @protected
+   * @type {string[]}
+   * @memberof BaseController
+   */
   protected excludedFields?: string[];
+
+  /**
+   * Sets the sort order of documents
+   *
+   * @protected
+   * @type {SortObject}
+   * @memberof BaseController
+   */
   protected sortBy?: SortObject;
+
+  /**
+   * Populates document references
+   *
+   * @protected
+   * @type {string[]}
+   * @memberof BaseController
+   */
   protected populatedFields?: string[];
 
   /**
@@ -94,7 +124,7 @@ class BaseController {
   }
 
   /**
-   * Creates an instance of BaseController.
+   * Creates an instance of BaseController
    * @param {Request} req - The request object
    * @param {Response} res - The response object
    * @param {NextFunction} next - next function

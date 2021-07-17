@@ -11,7 +11,8 @@
     "prettier:check": "prettier --check .",
     "prettier:fix": "prettier --write .",
     "lint": "eslint src/**",
-    "test": "jest"
+    "test": "jest",
+    "coverage": "jest --coverage"
   },
   "repository": {
     "type": "git",

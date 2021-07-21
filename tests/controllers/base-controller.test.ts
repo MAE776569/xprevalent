@@ -8,3 +8,22 @@ const req = mockRequest();
 const res = mockResponse();
 const next: NextFunction = jest.fn();
 const genericController = new BaseController(req, res, next);
+
+describe("Base controller should have queryObjectName", () => {
+  it("Should exist in base controller", () => {
+    expect(genericController).toHaveProperty("queryObjectName");
+  });
+
+  it("Should have default value", () => {
+    expect(genericController).toHaveProperty("queryObjectName", "data");
+  });
+
+  it("Should override default name", () => {
+    const objectName = "result";
+    class Controller extends BaseController {
+      queryObjectName = objectName;
+    }
+    const controllerObject = new Controller(req, res, next);
+    expect(controllerObject).toHaveProperty("queryObjectName", objectName);
+  });
+});

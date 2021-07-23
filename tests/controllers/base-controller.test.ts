@@ -27,3 +27,22 @@ describe("Base controller should have queryObjectName", () => {
     expect(controllerObject).toHaveProperty("queryObjectName", objectName);
   });
 });
+
+describe("Base controller should have context object", () => {
+  it("Should have empty context object", () => {
+    const cxtObject = (<any>genericController).getContextObject();
+    expect(cxtObject).resolves.toEqual({});
+  });
+
+  it("Should return context object", () => {
+    const title = "testing xprevalent";
+    class Controller extends BaseController {
+      async getContextObject() {
+        return { title };
+      }
+    }
+    const controllerObject = new Controller(req, res, next);
+    const cxtObject = (<any>controllerObject).getContextObject();
+    expect(cxtObject).resolves.toHaveProperty("title", title);
+  });
+});

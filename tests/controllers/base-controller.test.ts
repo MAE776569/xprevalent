@@ -46,3 +46,24 @@ describe("Base controller should have context object", () => {
     expect(cxtObject).resolves.toHaveProperty("title", title);
   });
 });
+
+describe("Base controller should have query method", () => {
+  it("Should return empty array", () => {
+    const queryResult = (<any>genericController).getQueryResult();
+    expect(queryResult).resolves.toEqual([]);
+    expect(queryResult).resolves.toHaveLength(0);
+  });
+
+  it("Should return query object", () => {
+    const title = "testing xprevalent";
+    const docs: any = [{ title }];
+    class Controller extends BaseController {
+      async getQueryResult() {
+        return docs;
+      }
+    }
+    const controllerObject = new Controller(req, res, next);
+    const queryResult = (<any>controllerObject).getQueryResult();
+    expect(queryResult).resolves.toHaveLength(1);
+  });
+});

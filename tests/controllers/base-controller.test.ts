@@ -67,3 +67,13 @@ describe("Base controller should have query method", () => {
     expect(queryResult).resolves.toHaveLength(1);
   });
 });
+
+describe("Base controller should have handler", () => {
+  it("Should be array of one element", () => {
+    expect(BaseController.handle).toHaveLength(1);
+  });
+
+  it("Should be array of function callback", () => {
+    expect(typeof BaseController.handle[0]).toBe("function");
+  });
+});

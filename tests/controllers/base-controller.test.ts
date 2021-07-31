@@ -77,3 +77,33 @@ describe("Base controller should have handler", () => {
     expect(typeof BaseController.handle[0]).toBe("function");
   });
 });
+
+describe("Base controller should handle request", () => {
+  it("Should call handleRequest", async () => {
+    const handlerSpy = jest.spyOn(<any>genericController, "handleRequest");
+    await (<any>genericController).handleRequest();
+    expect(handlerSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it("Should call getContextObject in handleRequest", async () => {
+    const ctxSpy = jest.spyOn(<any>genericController, "getContextObject");
+    await (<any>genericController).handleRequest();
+    expect(ctxSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it("Should call getQueryResult in handleRequest", async () => {
+    class Controller extends BaseController {
+      model = {} as Model<Document>;
+    }
+    const controllerObject = new Controller(req, res, next);
+
+    const querySpy = jest.spyOn(<any>controllerObject, "getQueryResult");
+    await (<any>controllerObject).handleRequest();
+    expect(querySpy).toHaveBeenCalledTimes(1);
+  });
+
+  it("Should call res.send", async () => {
+    await (<any>genericController).handleRequest();
+    expect(res.send).toHaveBeenCalled();
+  });
+});

@@ -107,3 +107,27 @@ describe("Base controller should handle request", () => {
     expect(res.send).toHaveBeenCalled();
   });
 });
+
+describe("Base controller should call next", () => {
+  it("Should call next with getContextObject error", async () => {
+    class Controller extends BaseController {
+      getContextObject() {
+        return Promise.reject();
+      }
+    }
+    const controllerObject = new Controller(req, res, next);
+    await (<any>controllerObject).handleRequest();
+    expect(next).toHaveBeenCalledTimes(1);
+  });
+
+  it("Should call next with getQueryResult error", async () => {
+    class Controller extends BaseController {
+      getQueryResult() {
+        return Promise.reject();
+      }
+    }
+    const controllerObject = new Controller(req, res, next);
+    await (<any>controllerObject).handleRequest();
+    expect(next).toHaveBeenCalledTimes(1);
+  });
+});

@@ -131,3 +131,23 @@ describe("Base controller should call next", () => {
     expect(next).toHaveBeenCalledTimes(1);
   });
 });
+
+describe("Base controller should have query filter", () => {
+  it("Should return empty filter object", () => {
+    expect((<any>genericController).getQueryFilter()).toEqual({});
+  });
+
+  it("Should override filter object", () => {
+    const filter = {
+      $and: [{ title: { $ne: null } }, { description: { $ne: null } }]
+    };
+    class Controller extends BaseController {
+      getQueryFilter() {
+        return filter;
+      }
+    }
+    const controllerObject = new Controller(req, res, next);
+    const queryFilter = (<any>controllerObject).getQueryFilter();
+    expect(queryFilter).toEqual(filter);
+  });
+});

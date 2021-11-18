@@ -1,43 +1,17 @@
-import ValidationChain from "../../validators/ValidationChain";
-import ValidationResult from "../../validators/ValidationResult";
-import { Request } from "express";
-import { FillableObject } from "../controllers/generic";
-
-export interface ValidationInput {
-  req: Request;
-  keys: string[];
-  validationResult: ValidationResult;
-}
-
 /* eslint-disable no-unused-vars */
-export type PipelineRunner = ({
-  req,
-  keys,
-  validationResult
-}: ValidationInput) => void;
+import { FillableObject } from "../controllers/generic";
+import { AnyObjectSchema } from "yup";
 
-export type Chain = PipelineRunner | ValidationChain<Chain>;
-export interface SchemaObject {
-  [key: string]: PipelineRunner | SchemaObject;
-}
 export interface ValidationErrors extends FillableObject, Object {}
+
+interface SchemaValidation {
+  body?: AnyObjectSchema;
+  params?: AnyObjectSchema;
+  query?: AnyObjectSchema;
+}
 
 export interface ValidationObject {
   hasError: (name?: string) => boolean;
   getSanitizedValue: (name?: string) => any;
   getErrors: () => ValidationErrors;
 }
-
-export interface BaseValidation {
-  validate:
-    | ((req: Request) => ValidationObject)
-    | (({ req, keys, validationResult }: ValidationInput) => void);
-}
-
-export interface ArraySchemaOptions {
-  length?: number;
-  minLength?: number;
-  maxLength?: number;
-}
-
-export type ValidationLocation = "body" | "params" | "query";

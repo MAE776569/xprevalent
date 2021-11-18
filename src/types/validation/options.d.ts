@@ -674,3 +674,12 @@ export interface NormalizeEmailOptions {
   icloud_lowercase?: boolean;
   icloud_remove_subaddress?: boolean;
 }
+
+export type licensePlateLocale =
+  | "cs-CZ"
+  | "de-DE"
+  | "de-LI"
+  | "fi-FI"
+  | "pt-PT"
+  | "sq-AL"
+  | "pt-BR";

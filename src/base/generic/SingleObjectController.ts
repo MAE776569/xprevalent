@@ -18,7 +18,7 @@ class SingleObjectController extends BaseController {
   protected validateKeyParam() {
     const validationSchema = new ValidationSchema({
       params: validator.object({
-        [this.keyParam]: (validator.string() as any).mongoId()
+        [this.keyParam]: validator.string().mongoId()
       })
     });
     const validationResult = validationSchema.validate(this.req);

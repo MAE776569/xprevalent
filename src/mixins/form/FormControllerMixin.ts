@@ -1,7 +1,8 @@
 import { Constructor, FillableObject } from "../../types/controllers/generic";
 import { ViewFormControllerType } from "../../types/controllers/form";
-import BaseController from "../../base/generic/BaseController";
+import BaseController from "../../controllers/generic/BaseController";
 import { ValidationObject } from "../../types/validation/schema";
+import FormContent from "../../forms/FormContent";
 
 function FormControllerMixin<T extends Constructor<BaseController>>(
   BaseClass: T
@@ -11,6 +12,9 @@ function FormControllerMixin<T extends Constructor<BaseController>>(
     // Redirect urls
     protected successUrl?: string;
     protected validationResult!: ValidationObject;
+
+    // Form content
+    protected formContent!: FormContent;
 
     protected getSuccessUrl(): string {
       return typeof this.successUrl === "string" && this.successUrl.length !== 0
@@ -24,8 +28,16 @@ function FormControllerMixin<T extends Constructor<BaseController>>(
     }
 
     protected formInvalid(contextObject: FillableObject): void {
+      this.formContent.setRequest(this.req);
+      const initials = this.formContent.getInitials();
+      const helperText = this.formContent.getHelperText();
       const errors = this.validationResult.getErrors();
-      return this.res.render(this.viewTemplate, { errors, ...contextObject });
+      return this.res.render(this.viewTemplate, {
+        errors,
+        initials,
+        helperText,
+        ...contextObject
+      });
     }
   }
 

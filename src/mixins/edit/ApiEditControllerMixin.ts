@@ -1,4 +1,4 @@
-import BaseEditController from "../../base/form/BaseEditController";
+import BaseEditController from "../../controllers/form/BaseEditController";
 import { Constructor } from "../../types/controllers/generic";
 
 function ApiEditControllerMixin<T extends Constructor<BaseEditController>>(

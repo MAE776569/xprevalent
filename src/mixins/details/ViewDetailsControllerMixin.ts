@@ -1,4 +1,4 @@
-import BaseDetailsController from "../../base/generic/BaseDetailsController";
+import BaseDetailsController from "../../controllers/generic/BaseDetailsController";
 import { Constructor } from "../../types/controllers/generic";
 
 function ViewDetailsControllerMixin<

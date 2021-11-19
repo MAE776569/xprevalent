@@ -1,4 +1,4 @@
-import BaseCreateController from "../../base/form/BaseCreateController";
+import BaseCreateController from "../../controllers/form/BaseCreateController";
 import { Constructor } from "../../types/controllers/generic";
 
 function ApiCreateControllerMixin<T extends Constructor<BaseCreateController>>(

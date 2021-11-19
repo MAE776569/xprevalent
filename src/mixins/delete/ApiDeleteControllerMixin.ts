@@ -1,4 +1,4 @@
-import BaseDeleteController from "../../base/form/BaseDeleteController";
+import BaseDeleteController from "../../controllers/form/BaseDeleteController";
 import { Constructor } from "../../types/controllers/generic";
 
 function ApiDeleteControllerMixin<T extends Constructor<BaseDeleteController>>(

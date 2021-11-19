@@ -1,6 +1,6 @@
-import BaseCreateController from "../../base/form/BaseCreateController";
-import BaseDeleteController from "../../base/form/BaseDeleteController";
-import BaseEditController from "../../base/form/BaseEditController";
+import BaseCreateController from "../../controllers/form/BaseCreateController";
+import BaseDeleteController from "../../controllers/form/BaseDeleteController";
+import BaseEditController from "../../controllers/form/BaseEditController";
 import FormControllerMixin from "../../mixins/form/FormControllerMixin";
 
 export type ViewFormControllerType = (

@@ -1,6 +1,6 @@
 import { NextFunction } from "express";
 import { Model, Document } from "mongoose";
-import BaseController from "../../src/base/generic/BaseController";
+import BaseController from "../../src/controllers/generic/BaseController";
 import mockRequest from "../mocks/mock-request";
 import mockResponse from "../mocks/mock-response";
 

@@ -28,9 +28,7 @@ function FormControllerMixin<T extends Constructor<BaseController>>(
     }
 
     protected formInvalid(contextObject: FillableObject): void {
-      this.formContent.setRequest(this.req);
-      const initials = this.formContent.getInitials();
-      const helperText = this.formContent.getHelperText();
+      const { initials, helperText } = this.formContent.getFormData(this.req);
       const errors = this.validationResult.getErrors();
       return this.res.render(this.viewTemplate, {
         errors,

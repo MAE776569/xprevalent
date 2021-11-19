@@ -10,10 +10,8 @@ class FormViewController extends BaseController {
 
   protected async handleRequest() {
     try {
-      this.formContent.setRequest(this.req);
       const contextObject = await this.getContextObject();
-      const initials = this.formContent.getInitials();
-      const helperText = this.formContent.getHelperText();
+      const { initials, helperText } = this.formContent.getFormData(this.req);
       const resObject = { ...contextObject, initials, helperText };
       return this.res.render(this.viewTemplate, resObject);
     } catch (err) {

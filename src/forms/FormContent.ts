@@ -5,16 +5,22 @@ class FormContent {
   private initials: { [key: string]: string } = {};
   private helperText: { [key: string]: string } = {};
 
-  public setRequest(req: Request) {
-    this.req = req;
-  }
-
-  public getInitials() {
+  private getInitials() {
     return this.initials;
   }
 
-  public getHelperText() {
+  private getHelperText() {
     return this.helperText;
+  }
+
+  public getFormData(req: Request) {
+    this.req = req;
+    const initials = this.getInitials();
+    const helperText = this.getHelperText();
+    return {
+      initials,
+      helperText
+    };
   }
 }
 

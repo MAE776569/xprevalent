@@ -22,3 +22,19 @@ describe("List controller should have pagination parameters", () => {
     });
   });
 });
+
+describe("Should get pagination object", () => {
+  it("Should have default pagination", () => {
+    expect((<any>listController).pagination).toEqual({
+      page: 1,
+      limit: 10
+    });
+  });
+
+  it("Should return already calculated pagination", () => {
+    expect((<any>listController).getPaginationParams()).toEqual({
+      page: 1,
+      limit: 10
+    });
+  });
+});

@@ -27,4 +27,8 @@ transformMethods.forEach((method) => {
   });
 });
 
+yup.addMethod(yup.mixed, "withMessage", function (message) {
+  return this.typeError(message);
+});
+
 export = yup;

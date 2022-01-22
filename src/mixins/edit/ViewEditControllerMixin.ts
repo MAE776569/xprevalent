@@ -13,7 +13,7 @@ function ViewEditControllerMixin<T extends Constructor<ViewFormControllerType>>(
         }
 
         const contextObject = await this.getContextObject();
-        if (this.validationResult.hasError()) {
+        if (this.validationResult.hasError({ location: "body" })) {
           return this.formInvalid(contextObject);
         }
 

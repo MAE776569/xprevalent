@@ -20,7 +20,7 @@ class BaseCreateController extends BaseController {
   }
 
   protected getDocument(): FillableObject {
-    return this.validationResult.getSanitizedValue();
+    return this.validationResult.getSanitizedValue("body");
   }
 
   protected getQueryResult() {

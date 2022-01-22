@@ -7,10 +7,10 @@ function ApiCreateControllerMixin<T extends Constructor<BaseCreateController>>(
   return class ApiCreateController extends BaseClass {
     protected async handleRequest() {
       try {
-        if (this.validationResult.hasError()) {
-          return this.res
-            .status(422)
-            .json({ errors: this.validationResult.getErrors() });
+        if (this.validationResult.hasError({ location: "body" })) {
+          return this.res.status(422).json({
+            errors: this.validationResult.getErrors({ location: "body" })
+          });
         }
 
         const queryResult = await this.getQueryResult();

@@ -1,6 +1,9 @@
 import { FillableObject } from "../types/controllers/generic";
-import { ValidationErrors } from "../types/validation/schema";
-import * as _ from "lodash";
+import {
+  ValidationErrors,
+  ValidationResultInput
+} from "../types/validation/schema";
+import _ from "lodash";
 
 class ValidationResult {
   private errors: ValidationErrors = {};
@@ -14,11 +17,13 @@ class ValidationResult {
     this.sanitizedValues = _.merge(this.sanitizedValues, sanitizedObject);
   }
 
-  public hasError(name?: string): boolean {
+  public hasError({ name, location }: ValidationResultInput): boolean {
+    const errorsInLocation =
+      (location ? this.errors[location] : this.errors) ?? {};
     if (name) {
-      return Object.prototype.hasOwnProperty.call(this.errors, name);
+      return Object.prototype.hasOwnProperty.call(errorsInLocation, name);
     }
-    return Object.keys(this.errors).length !== 0;
+    return Object.keys(errorsInLocation).length !== 0;
   }
 
   public getSanitizedValue(name?: string): any {
@@ -28,8 +33,16 @@ class ValidationResult {
     return this.sanitizedValues;
   }
 
-  public getErrors(): ValidationErrors {
-    return this.errors;
+  public getErrors({
+    name,
+    location
+  }: ValidationResultInput): ValidationErrors {
+    const errorsInLocation =
+      (location ? this.errors[location] : this.errors) ?? {};
+    if (name) {
+      return errorsInLocation[name];
+    }
+    return errorsInLocation;
   }
 }
 

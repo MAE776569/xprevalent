@@ -22,7 +22,10 @@ class SingleObjectController extends BaseController {
       })
     });
     const validationResult = validationSchema.validate(this.req);
-    return validationResult.hasError(this.keyParam);
+    return validationResult.hasError({
+      name: this.keyParam,
+      location: "params"
+    });
   }
 
   protected getQueryFilter() {

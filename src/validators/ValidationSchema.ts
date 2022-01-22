@@ -1,5 +1,9 @@
 import { Request } from "express";
-import { SchemaValidation, ValidationObject } from "../types/validation/schema";
+import {
+  SchemaValidation,
+  ValidationObject,
+  ValidationResultInput
+} from "../types/validation/schema";
 import ValidationResult from "./ValidationResult";
 
 class ValidationSchema {
@@ -13,23 +17,30 @@ class ValidationSchema {
 
   public validate(req: Request): ValidationObject {
     const locations: string[] = Object.keys(this.schema);
+
     locations.forEach((location: string) => {
       try {
         const value = this.schema[location].validateSync(req[location], {
           abortEarly: false
         });
-        this.validationResult.addSanitizedValue(value);
+
+        this.validationResult.addSanitizedValue({ [location]: value });
       } catch (validationError: any) {
         for (const error of validationError.inner) {
-          this.validationResult.addError({ [error.path]: error.message });
+          this.validationResult.addError({
+            [location]: { [error.path]: error.message }
+          });
         }
       }
     });
+
     return {
-      hasError: (name?: string) => this.validationResult.hasError(name),
+      hasError: ({ name, location }: ValidationResultInput = {}) =>
+        this.validationResult.hasError({ name, location }),
       getSanitizedValue: (name?: string) =>
         this.validationResult.getSanitizedValue(name),
-      getErrors: () => this.validationResult.getErrors()
+      getErrors: ({ name, location }: ValidationResultInput = {}) =>
+        this.validationResult.getErrors({ name, location })
     };
   }
 }

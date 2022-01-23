@@ -38,3 +38,15 @@ describe("Should get pagination object", () => {
     });
   });
 });
+
+describe("Should get and set total pages", () => {
+  const lastPage = 5;
+  it("Should get totalPages", () => {
+    expect((<any>listController).totalPages).toEqual(1);
+  });
+
+  it("Should set totalPages", () => {
+    (<any>listController).totalPages = lastPage;
+    expect((<any>listController).totalPages).toEqual(lastPage);
+  });
+});

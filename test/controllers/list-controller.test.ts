@@ -50,3 +50,32 @@ describe("Should get and set total pages", () => {
     expect((<any>listController).totalPages).toEqual(lastPage);
   });
 });
+
+describe("Should get context object", () => {
+  it("Should get empty context object", () => {
+    expect((<any>listController).getContextObject()).resolves.toEqual({});
+  });
+
+  it("Should get context object with meta", async () => {
+    const listControllerWithPagination = new BaseListController(req, res, next);
+    (<any>listControllerWithPagination).model = ({
+      // eslint-disable-next-line no-empty-pattern
+      countDocuments({}) {
+        return Promise.resolve(1);
+      }
+    } as unknown) as Model<Document>;
+    (<any>listControllerWithPagination).usePagination = true;
+    const ctx = await (<any>listControllerWithPagination).getContextObject();
+
+    expect(ctx).toHaveProperty("meta", {
+      totalDocs: 1,
+      totalPages: 1,
+      page: 1,
+      limit: 10,
+      hasNext: false,
+      nextPage: null,
+      hasPrevious: false,
+      previousPage: null
+    });
+  });
+});

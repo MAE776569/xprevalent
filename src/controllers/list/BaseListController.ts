@@ -14,13 +14,9 @@ class BaseListController extends BaseController {
 
   // Pagination data
   protected usePagination: boolean = false;
-  protected paginateBy: PaginationSettings = {
-    pageParam: "page",
-    limitParam: "limit",
-    defaultLimit: 10
-  };
+  protected paginateBy: PaginationSettings = {};
+  protected totalPages: number = 1;
   private pagination!: PaginationObject;
-  private lastPage: number = 1;
 
   // Query fields
   private queryFilter: FillableObject = {};
@@ -28,7 +24,6 @@ class BaseListController extends BaseController {
   constructor(req: Request, res: Response, next: NextFunction) {
     super(req, res, next);
     this.queryFilter = this.getQueryFilter();
-    this.pagination = this.getPaginationParams();
   }
 
   protected getPaginationParams(): PaginationObject {
@@ -36,15 +31,11 @@ class BaseListController extends BaseController {
       return this.pagination;
     }
 
-    const {
-      pageParam = "page",
-      limitParam = "limit",
-      defaultLimit = 10
-    } = this.paginateBy;
+    const { pageParam, limitParam, defaultLimit } = this.getDefaultPagination();
 
-    const page = +(this.req.query[pageParam] as string) || 1;
+    const page = +(this.req.query[pageParam!] as string) || 1;
     const limit =
-      +(this.req.query[limitParam] as string) || +defaultLimit || 10;
+      +(this.req.query[limitParam!] as string) || +defaultLimit! || 10;
 
     return {
       page,
@@ -56,19 +47,17 @@ class BaseListController extends BaseController {
     return {};
   }
 
-  protected set totalPages(lastPage: number) {
-    this.lastPage = lastPage;
-  }
-
-  protected get totalPages(): number {
-    return this.lastPage;
+  protected async getDocumentsCount(): Promise<number> {
+    const count = await this.model.countDocuments(this.queryFilter);
+    return count;
   }
 
   protected async getPaginationMeta(): Promise<PaginationMeta> {
-    const count = await this.model.countDocuments(this.queryFilter);
+    const count = await this.getDocumentsCount();
     const { page, limit } = this.getPaginationParams();
     const lastPage = Math.ceil(count / limit);
     this.totalPages = lastPage;
+
     const meta = {
       totalDocs: count,
       totalPages: lastPage,

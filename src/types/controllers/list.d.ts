@@ -1,7 +1,7 @@
 export interface PaginationSettings {
-  pageParam: string;
-  limitParam: string;
-  defaultLimit: number;
+  pageParam?: string;
+  limitParam?: string;
+  defaultLimit?: number;
 }
 export interface PaginationObject {
   page: number;

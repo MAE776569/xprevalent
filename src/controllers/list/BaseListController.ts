@@ -26,6 +26,20 @@ class BaseListController extends BaseController {
     this.queryFilter = this.getQueryFilter();
   }
 
+  private getDefaultPagination(): PaginationSettings {
+    const {
+      pageParam = "page",
+      limitParam = "limit",
+      defaultLimit = 10
+    } = this.paginateBy;
+
+    return {
+      pageParam,
+      limitParam,
+      defaultLimit
+    };
+  }
+
   protected getPaginationParams(): PaginationObject {
     if (this.pagination) {
       return this.pagination;

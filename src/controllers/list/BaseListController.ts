@@ -6,7 +6,7 @@ import {
   PaginationObject,
   PaginationSettings
 } from "../../types/controllers/list";
-import BaseController from "./BaseController";
+import BaseController from "../generic/BaseController";
 
 class BaseListController extends BaseController {
   // Model

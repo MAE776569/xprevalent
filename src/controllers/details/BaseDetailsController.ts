@@ -1,5 +1,5 @@
 import { Model, Document } from "mongoose";
-import SingleObjectController from "./SingleObjectController";
+import SingleObjectController from "../generic/SingleObjectController";
 
 class BaseDetailsController extends SingleObjectController {
   // Model

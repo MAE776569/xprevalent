@@ -26,7 +26,7 @@ class BaseListController extends BaseController {
     this.queryFilter = this.getQueryFilter();
   }
 
-  private getDefaultPagination(): PaginationSettings {
+  private getDefaultPagination(): Required<PaginationSettings> {
     const {
       pageParam = "page",
       limitParam = "limit",
@@ -46,10 +46,9 @@ class BaseListController extends BaseController {
     }
 
     const { pageParam, limitParam, defaultLimit } = this.getDefaultPagination();
-
-    const page = +(this.req.query[pageParam!] as string) || 1;
+    const page = parseInt(this.req.query[pageParam] as string) || 1;
     const limit =
-      +(this.req.query[limitParam!] as string) || +defaultLimit! || 10;
+      parseInt(this.req.query[limitParam] as string) || defaultLimit;
 
     return {
       page,

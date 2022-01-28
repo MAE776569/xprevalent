@@ -69,12 +69,12 @@ class BaseListController extends BaseController {
     const count = await this.getDocumentsCount();
     const { page, limit } = this.getPaginationParams();
     const lastPage = Math.ceil(count / limit);
-    this.totalPages = lastPage;
+    this.totalPages = lastPage > 0 ? lastPage : 1;
 
     const meta = {
       totalDocs: count,
       totalPages: lastPage,
-      page: page < lastPage ? page : lastPage,
+      page: page < lastPage ? page : this.totalPages,
       limit,
       hasNext: page < lastPage,
       nextPage: page < lastPage ? page + 1 : null,

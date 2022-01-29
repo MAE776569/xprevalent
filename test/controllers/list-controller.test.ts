@@ -1,6 +1,6 @@
 import { NextFunction } from "express";
 import { Model, Document } from "mongoose";
-import BaseListController from "../../src/controllers/generic/BaseListController";
+import BaseListController from "../../src/controllers/list/BaseListController";
 import mockRequest from "../mocks/mock-request";
 import mockResponse from "../mocks/mock-response";
 
@@ -15,20 +15,13 @@ describe("List controller should have pagination parameters", () => {
   });
 
   it("Should have pagination object", () => {
-    expect((<any>listController).paginateBy).toEqual({
-      pageParam: "page",
-      limitParam: "limit",
-      defaultLimit: 10
-    });
+    expect((<any>listController).paginateBy).toEqual({});
   });
 });
 
 describe("Should get pagination object", () => {
   it("Should have default pagination", () => {
-    expect((<any>listController).pagination).toEqual({
-      page: 1,
-      limit: 10
-    });
+    expect((<any>listController).pagination).toBeUndefined();
   });
 
   it("Should return already calculated pagination", () => {
@@ -36,6 +29,15 @@ describe("Should get pagination object", () => {
       page: 1,
       limit: 10
     });
+  });
+
+  it("Should return pagination object if exists", () => {
+    const pagination = {
+      page: 1,
+      limit: 10
+    };
+    (<any>listController).pagination = pagination;
+    expect((<any>listController).getPaginationParams()).toEqual(pagination);
   });
 });
 

@@ -1,7 +1,9 @@
-import FormControllerMixin from "../../mixins/form/FormControllerMixin";
+import FormViewControllerMixin from "../../mixins/form/FormViewControllerMixin";
 import BaseDeleteController from "./BaseDeleteController";
 
-class ViewDeleteController extends FormControllerMixin(BaseDeleteController) {
+class ViewDeleteController extends FormViewControllerMixin(
+  BaseDeleteController
+) {
   async handleRequest() {
     try {
       if (this.validateKeyParam() && !this.deleteOne) {

@@ -1,7 +1,9 @@
-import FormControllerMixin from "../../mixins/form/FormControllerMixin";
-import BaseDetailsController from "../details/BaseDetailsController";
+import FormViewControllerMixin from "../../mixins/form/FormViewControllerMixin";
+import BaseCreateController from "./BaseCreateController";
 
-class ViewCreateController extends FormControllerMixin(BaseDetailsController) {
+class ViewCreateController extends FormViewControllerMixin(
+  BaseCreateController
+) {
   async handleRequest() {
     try {
       const contextObject = await this.getContextObject();

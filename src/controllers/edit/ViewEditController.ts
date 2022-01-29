@@ -1,7 +1,7 @@
-import FormControllerMixin from "../../mixins/form/FormControllerMixin";
+import FormViewControllerMixin from "../../mixins/form/FormViewControllerMixin";
 import BaseEditController from "./BaseEditController";
 
-class ViewEditController extends FormControllerMixin(BaseEditController) {
+class ViewEditController extends FormViewControllerMixin(BaseEditController) {
   async handleRequest() {
     try {
       if (this.validateKeyParam() && !this.updateOne) {

@@ -4,7 +4,7 @@ import BaseController from "../../controllers/generic/BaseController";
 import { ValidationObject } from "../../types/validation/schema";
 import FormContent from "../../forms/FormContent";
 
-function FormControllerMixin<T extends Constructor<BaseController>>(
+function FormViewControllerMixin<T extends Constructor<BaseController>>(
   BaseClass: T
 ) {
   class FormController extends BaseClass {
@@ -42,4 +42,4 @@ function FormControllerMixin<T extends Constructor<BaseController>>(
   return FormController as ViewFormControllerType;
 }
 
-export = FormControllerMixin;
+export = FormViewControllerMixin;

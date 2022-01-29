@@ -81,3 +81,93 @@ describe("Should get context object", () => {
     });
   });
 });
+
+describe("Should get pagination meta", () => {
+  it("Should set total pages", async () => {
+    const listControllerWithPagination = new BaseListController(req, res, next);
+    (<any>listControllerWithPagination).model = ({
+      // eslint-disable-next-line no-empty-pattern
+      countDocuments({}) {
+        return Promise.resolve(0);
+      }
+    } as unknown) as Model<Document>;
+
+    await (<any>listControllerWithPagination).getPaginationMeta();
+    expect((<any>listControllerWithPagination).totalPages).toBe(1);
+  });
+
+  it("Should get pagination meta with default first page", async () => {
+    const listControllerWithPagination = new BaseListController(req, res, next);
+
+    const count = 20;
+    (<any>listControllerWithPagination).model = ({
+      // eslint-disable-next-line no-empty-pattern
+      countDocuments({}) {
+        return Promise.resolve(count);
+      }
+    } as unknown) as Model<Document>;
+
+    const meta = await (<any>listControllerWithPagination).getPaginationMeta();
+    expect(meta).toEqual({
+      totalDocs: count,
+      totalPages: 2,
+      page: 1,
+      limit: 10,
+      hasNext: true,
+      nextPage: 2,
+      hasPrevious: false,
+      previousPage: null
+    });
+  });
+
+  const reqWithPage = mockRequest({ page: "2" });
+  const listControllerWithQuery = new BaseListController(
+    reqWithPage,
+    res,
+    next
+  );
+
+  it("Should get pagination meta with querying page", async () => {
+    const count = 20;
+    (<any>listControllerWithQuery).model = ({
+      // eslint-disable-next-line no-empty-pattern
+      countDocuments({}) {
+        return Promise.resolve(count);
+      }
+    } as unknown) as Model<Document>;
+
+    const meta = await (<any>listControllerWithQuery).getPaginationMeta();
+    expect(meta).toEqual({
+      totalDocs: count,
+      totalPages: 2,
+      page: 2,
+      limit: 10,
+      hasNext: false,
+      nextPage: null,
+      hasPrevious: true,
+      previousPage: 1
+    });
+  });
+
+  it("Should get pagination meta with previous page", async () => {
+    const count = 30;
+    (<any>listControllerWithQuery).model = ({
+      // eslint-disable-next-line no-empty-pattern
+      countDocuments({}) {
+        return Promise.resolve(count);
+      }
+    } as unknown) as Model<Document>;
+
+    const meta = await (<any>listControllerWithQuery).getPaginationMeta();
+    expect(meta).toEqual({
+      totalDocs: count,
+      totalPages: 3,
+      page: 2,
+      limit: 10,
+      hasNext: true,
+      nextPage: 3,
+      hasPrevious: true,
+      previousPage: 1
+    });
+  });
+});

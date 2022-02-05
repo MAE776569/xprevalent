@@ -4,7 +4,7 @@ import BaseEditController from "./BaseEditController";
 class ViewEditController extends FormViewControllerMixin(BaseEditController) {
   async handleRequest() {
     try {
-      if (this.validateKeyParam() && !this.updateOne) {
+      if (this.validateIdParam() && !this.updateOne) {
         return this.res.sendStatus(404);
       }
 

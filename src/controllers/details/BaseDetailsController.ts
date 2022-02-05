@@ -14,7 +14,7 @@ class BaseDetailsController extends SingleObjectController {
       const queryFilter = this.getQueryFilter();
       querySet = this.model.findOne(queryFilter);
     } else {
-      const id = this.req.params[this.keyParam];
+      const id = this.req.params[this.idParam];
       querySet = this.model.findById(id);
     }
     if (this.populatedFields) {

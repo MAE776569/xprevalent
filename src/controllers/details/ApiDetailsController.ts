@@ -3,7 +3,7 @@ import BaseDetailsController from "./BaseDetailsController";
 class ApiDetailsController extends BaseDetailsController {
   protected async handleRequest() {
     try {
-      if (this.validateKeyParam() && !this.findOne) {
+      if (this.validateIdParam() && !this.findOne) {
         return this.res.status(404).json({ message: "Invalid id" });
       }
 

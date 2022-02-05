@@ -3,7 +3,7 @@ import BaseEditController from "./BaseEditController";
 class ApiEditController extends BaseEditController {
   protected async handleRequest() {
     try {
-      if (this.validateKeyParam() && !this.updateOne) {
+      if (this.validateIdParam() && !this.updateOne) {
         return this.res.status(404).json({ message: "Invalid id" });
       }
 

@@ -6,7 +6,7 @@ class ViewDeleteController extends FormViewControllerMixin(
 ) {
   async handleRequest() {
     try {
-      if (this.validateKeyParam() && !this.deleteOne) {
+      if (this.validateIdParam() && !this.deleteOne) {
         return this.res.sendStatus(404);
       }
 

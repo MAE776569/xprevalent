@@ -25,7 +25,7 @@ class BaseEditController extends SingleObjectController {
       const queryFilter = this.getQueryFilter();
       querySet = this.model.findOneAndUpdate(queryFilter, updateSet, options);
     } else {
-      const id = this.req.params[this.keyParam];
+      const id = this.req.params[this.idParam];
       querySet = this.model.findByIdAndUpdate(id, updateSet, options);
     }
     if (this.populatedFields) {

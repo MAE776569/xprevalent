@@ -6,7 +6,7 @@ class ViewDetailsController extends BaseDetailsController {
 
   protected async handleRequest() {
     try {
-      if (this.validateKeyParam() && !this.findOne) {
+      if (this.validateIdParam() && !this.findOne) {
         return this.res.sendStatus(404);
       }
 

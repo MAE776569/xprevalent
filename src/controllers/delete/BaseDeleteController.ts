@@ -14,7 +14,7 @@ class BaseDeleteController extends SingleObjectController {
       const queryFilter = this.getQueryFilter();
       querySet = this.model.findOneAndDelete(queryFilter);
     } else {
-      const id = this.req.params[this.keyParam];
+      const id = this.req.params[this.idParam];
       querySet = this.model.findByIdAndDelete(id);
     }
     if (this.populatedFields) {

@@ -4,7 +4,7 @@ import BaseController from "./BaseController";
 
 class SingleObjectController extends BaseController {
   // Params and validation
-  protected keyParam: string = "id";
+  protected idParam: string = "id";
   protected validationSchema!: ValidationSchema;
   private validation!: ValidationObject;
 
@@ -15,15 +15,15 @@ class SingleObjectController extends BaseController {
     return this.validation;
   }
 
-  protected validateKeyParam() {
+  protected validateIdParam() {
     const validationSchema = new ValidationSchema({
       params: validator.object({
-        [this.keyParam]: validator.string().mongoId()
+        [this.idParam]: validator.string().mongoId()
       })
     });
     const validationResult = validationSchema.validate(this.req);
     return validationResult.hasError({
-      name: this.keyParam,
+      name: this.idParam,
       location: "params"
     });
   }

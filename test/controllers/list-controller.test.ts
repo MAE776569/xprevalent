@@ -120,7 +120,7 @@ describe("Should get pagination meta", () => {
     });
   });
 
-  const reqWithPage = mockRequest({ page: "2" });
+  const reqWithPage = mockRequest({ query: { page: "2" } });
   const listControllerWithQuery = new BaseListController(
     reqWithPage,
     res,

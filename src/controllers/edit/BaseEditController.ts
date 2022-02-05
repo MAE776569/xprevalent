@@ -11,7 +11,7 @@ class BaseEditController extends SingleObjectController {
   protected upsert: boolean = false;
 
   protected getUpdateSet(): FillableObject {
-    return this.validationResult.getSanitizedValue("body");
+    return this.validationResult.getValue("body");
   }
 
   protected getQueryResult() {

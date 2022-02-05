@@ -13,7 +13,7 @@ export interface SchemaValidation {
 
 export interface ValidationObject {
   hasError: (validationResultInput?: ValidationResultInput) => boolean;
-  getSanitizedValue: (name?: string) => any;
+  getValue: (name?: string) => any;
   getErrors: (
     validationResultInput?: ValidationResultInput
   ) => ValidationErrors;

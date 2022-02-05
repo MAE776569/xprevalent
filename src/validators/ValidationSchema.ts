@@ -37,8 +37,7 @@ class ValidationSchema {
     return {
       hasError: ({ name, location }: ValidationResultInput = {}) =>
         this.validationResult.hasError({ name, location }),
-      getSanitizedValue: (name?: string) =>
-        this.validationResult.getSanitizedValue(name),
+      getValue: (name?: string) => this.validationResult.getValue(name),
       getErrors: ({ name, location }: ValidationResultInput = {}) =>
         this.validationResult.getErrors({ name, location })
     };

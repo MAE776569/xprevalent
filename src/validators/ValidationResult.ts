@@ -7,14 +7,14 @@ import _ from "lodash";
 
 class ValidationResult {
   private errors: ValidationErrors = {};
-  private sanitizedValues: FillableObject = {};
+  private values: FillableObject = {};
 
   public addError(errorObject: FillableObject): void {
     this.errors = _.merge(this.errors, errorObject);
   }
 
   public addSanitizedValue(sanitizedObject: FillableObject): void {
-    this.sanitizedValues = _.merge(this.sanitizedValues, sanitizedObject);
+    this.values = _.merge(this.values, sanitizedObject);
   }
 
   public hasError({ name, location }: ValidationResultInput): boolean {
@@ -26,11 +26,11 @@ class ValidationResult {
     return Object.keys(errorsInLocation).length !== 0;
   }
 
-  public getSanitizedValue(name?: string): any {
+  public getValue(name?: string): any {
     if (name) {
-      return this.sanitizedValues[name];
+      return this.values[name];
     }
-    return this.sanitizedValues;
+    return this.values;
   }
 
   public getErrors({

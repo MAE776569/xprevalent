@@ -1,13 +1,13 @@
 import { NextFunction } from "express";
-import { Model, Document } from "mongoose";
 import BaseController from "../../src/controllers/generic/BaseController";
 import mockRequest from "../mocks/mock-request";
 import mockResponse from "../mocks/mock-response";
+import mockModel from "../mocks/mock-model";
 
 const req = mockRequest();
 const res = mockResponse();
 const next: NextFunction = jest.fn();
-const genericController = new BaseController(req, res, next);
+const genericController: any = new BaseController(req, res, next);
 
 describe("Base controller should have queryObjectName", () => {
   it("Should exist in base controller", () => {
@@ -30,7 +30,7 @@ describe("Base controller should have queryObjectName", () => {
 
 describe("Base controller should have context object", () => {
   it("Should have empty context object", () => {
-    const cxtObject = (<any>genericController).getContextObject();
+    const cxtObject = genericController.getContextObject();
     expect(cxtObject).resolves.toEqual({});
   });
 
@@ -42,14 +42,14 @@ describe("Base controller should have context object", () => {
       }
     }
     const controllerObject = new Controller(req, res, next);
-    const cxtObject = (<any>controllerObject).getContextObject();
+    const cxtObject = controllerObject.getContextObject();
     expect(cxtObject).resolves.toHaveProperty("title", title);
   });
 });
 
 describe("Base controller should have query method", () => {
   it("Should return empty array", () => {
-    const queryResult = (<any>genericController).getQueryResult();
+    const queryResult = genericController.getQueryResult();
     expect(queryResult).resolves.toEqual([]);
     expect(queryResult).resolves.toHaveLength(0);
   });
@@ -63,7 +63,7 @@ describe("Base controller should have query method", () => {
       }
     }
     const controllerObject = new Controller(req, res, next);
-    const queryResult = (<any>controllerObject).getQueryResult();
+    const queryResult = controllerObject.getQueryResult();
     expect(queryResult).resolves.toHaveLength(1);
   });
 });
@@ -80,30 +80,30 @@ describe("Base controller should have handler", () => {
 
 describe("Base controller should handle request", () => {
   it("Should call handleRequest", async () => {
-    const handlerSpy = jest.spyOn(<any>genericController, "handleRequest");
-    await (<any>genericController).handleRequest();
+    const handlerSpy = jest.spyOn(genericController, "handleRequest");
+    await genericController.handleRequest();
     expect(handlerSpy).toHaveBeenCalledTimes(1);
   });
 
   it("Should call getContextObject in handleRequest", async () => {
-    const ctxSpy = jest.spyOn(<any>genericController, "getContextObject");
-    await (<any>genericController).handleRequest();
+    const ctxSpy = jest.spyOn(genericController, "getContextObject");
+    await genericController.handleRequest();
     expect(ctxSpy).toHaveBeenCalledTimes(1);
   });
 
   it("Should call getQueryResult in handleRequest", async () => {
     class Controller extends BaseController {
-      model = {} as Model<Document>;
+      model = mockModel();
     }
-    const controllerObject = new Controller(req, res, next);
+    const controllerObject: any = new Controller(req, res, next);
 
-    const querySpy = jest.spyOn(<any>controllerObject, "getQueryResult");
-    await (<any>controllerObject).handleRequest();
+    const querySpy = jest.spyOn(controllerObject, "getQueryResult");
+    await controllerObject.handleRequest();
     expect(querySpy).toHaveBeenCalledTimes(1);
   });
 
   it("Should call res.send", async () => {
-    await (<any>genericController).handleRequest();
+    await genericController.handleRequest();
     expect(res.send).toHaveBeenCalled();
   });
 });
@@ -115,8 +115,8 @@ describe("Base controller should call next", () => {
         return Promise.reject();
       }
     }
-    const controllerObject = new Controller(req, res, next);
-    await (<any>controllerObject).handleRequest();
+    const controllerObject: any = new Controller(req, res, next);
+    await controllerObject.handleRequest();
     expect(next).toHaveBeenCalledTimes(1);
   });
 
@@ -126,15 +126,15 @@ describe("Base controller should call next", () => {
         return Promise.reject();
       }
     }
-    const controllerObject = new Controller(req, res, next);
-    await (<any>controllerObject).handleRequest();
+    const controllerObject: any = new Controller(req, res, next);
+    await controllerObject.handleRequest();
     expect(next).toHaveBeenCalledTimes(1);
   });
 });
 
 describe("Base controller should have query filter", () => {
   it("Should return empty filter object", () => {
-    expect((<any>genericController).getQueryFilter()).toEqual({});
+    expect(genericController.getQueryFilter()).toEqual({});
   });
 
   it("Should override filter object", () => {
@@ -147,7 +147,7 @@ describe("Base controller should have query filter", () => {
       }
     }
     const controllerObject = new Controller(req, res, next);
-    const queryFilter = (<any>controllerObject).getQueryFilter();
+    const queryFilter = controllerObject.getQueryFilter();
     expect(queryFilter).toEqual(filter);
   });
 });

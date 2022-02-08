@@ -1,31 +1,31 @@
 import { NextFunction } from "express";
-import { Model, Document } from "mongoose";
 import BaseListController from "../../src/controllers/list/BaseListController";
 import mockRequest from "../mocks/mock-request";
 import mockResponse from "../mocks/mock-response";
+import mockModel from "../mocks/mock-model";
 
 const req = mockRequest();
 const res = mockResponse();
 const next: NextFunction = jest.fn();
-const listController = new BaseListController(req, res, next);
+const listController: any = new BaseListController(req, res, next);
 
 describe("List controller should have pagination parameters", () => {
   it("Shouldn't use pagination by default", () => {
-    expect((<any>listController).usePagination).toBe(false);
+    expect(listController.usePagination).toBe(false);
   });
 
   it("Should have pagination object", () => {
-    expect((<any>listController).paginateBy).toEqual({});
+    expect(listController.paginateBy).toEqual({});
   });
 });
 
 describe("Should get pagination object", () => {
   it("Should have default pagination", () => {
-    expect((<any>listController).pagination).toBeUndefined();
+    expect(listController.pagination).toBeUndefined();
   });
 
   it("Should return already calculated pagination", () => {
-    expect((<any>listController).getPaginationParams()).toEqual({
+    expect(listController.getPaginationParams()).toEqual({
       page: 1,
       limit: 10
     });
@@ -36,38 +36,37 @@ describe("Should get pagination object", () => {
       page: 1,
       limit: 10
     };
-    (<any>listController).pagination = pagination;
-    expect((<any>listController).getPaginationParams()).toEqual(pagination);
+    listController.pagination = pagination;
+    expect(listController.getPaginationParams()).toEqual(pagination);
   });
 });
 
 describe("Should get and set total pages", () => {
   const lastPage = 5;
   it("Should get totalPages", () => {
-    expect((<any>listController).totalPages).toEqual(1);
+    expect(listController.totalPages).toEqual(1);
   });
 
   it("Should set totalPages", () => {
-    (<any>listController).totalPages = lastPage;
-    expect((<any>listController).totalPages).toEqual(lastPage);
+    listController.totalPages = lastPage;
+    expect(listController.totalPages).toEqual(lastPage);
   });
 });
 
 describe("Should get context object", () => {
   it("Should get empty context object", () => {
-    expect((<any>listController).getContextObject()).resolves.toEqual({});
+    expect(listController.getContextObject()).resolves.toEqual({});
   });
 
   it("Should get context object with meta", async () => {
-    const listControllerWithPagination = new BaseListController(req, res, next);
-    (<any>listControllerWithPagination).model = ({
-      // eslint-disable-next-line no-empty-pattern
-      countDocuments({}) {
-        return Promise.resolve(1);
-      }
-    } as unknown) as Model<Document>;
-    (<any>listControllerWithPagination).usePagination = true;
-    const ctx = await (<any>listControllerWithPagination).getContextObject();
+    const listControllerWithPagination: any = new BaseListController(
+      req,
+      res,
+      next
+    );
+    listControllerWithPagination.model = mockModel({ count: 1 });
+    listControllerWithPagination.usePagination = true;
+    const ctx = await listControllerWithPagination.getContextObject();
 
     expect(ctx).toHaveProperty("meta", {
       totalDocs: 1,
@@ -84,30 +83,28 @@ describe("Should get context object", () => {
 
 describe("Should get pagination meta", () => {
   it("Should set total pages", async () => {
-    const listControllerWithPagination = new BaseListController(req, res, next);
-    (<any>listControllerWithPagination).model = ({
-      // eslint-disable-next-line no-empty-pattern
-      countDocuments({}) {
-        return Promise.resolve(0);
-      }
-    } as unknown) as Model<Document>;
+    const listControllerWithPagination: any = new BaseListController(
+      req,
+      res,
+      next
+    );
+    listControllerWithPagination.model = mockModel({ count: 0 });
 
-    await (<any>listControllerWithPagination).getPaginationMeta();
-    expect((<any>listControllerWithPagination).totalPages).toBe(1);
+    await listControllerWithPagination.getPaginationMeta();
+    expect(listControllerWithPagination.totalPages).toBe(1);
   });
 
   it("Should get pagination meta with default first page", async () => {
-    const listControllerWithPagination = new BaseListController(req, res, next);
+    const listControllerWithPagination: any = new BaseListController(
+      req,
+      res,
+      next
+    );
 
     const count = 20;
-    (<any>listControllerWithPagination).model = ({
-      // eslint-disable-next-line no-empty-pattern
-      countDocuments({}) {
-        return Promise.resolve(count);
-      }
-    } as unknown) as Model<Document>;
+    listControllerWithPagination.model = mockModel({ count });
 
-    const meta = await (<any>listControllerWithPagination).getPaginationMeta();
+    const meta = await listControllerWithPagination.getPaginationMeta();
     expect(meta).toEqual({
       totalDocs: count,
       totalPages: 2,
@@ -121,7 +118,7 @@ describe("Should get pagination meta", () => {
   });
 
   const reqWithPage = mockRequest({ query: { page: "2" } });
-  const listControllerWithQuery = new BaseListController(
+  const listControllerWithQuery: any = new BaseListController(
     reqWithPage,
     res,
     next
@@ -129,14 +126,9 @@ describe("Should get pagination meta", () => {
 
   it("Should get pagination meta with querying page", async () => {
     const count = 20;
-    (<any>listControllerWithQuery).model = ({
-      // eslint-disable-next-line no-empty-pattern
-      countDocuments({}) {
-        return Promise.resolve(count);
-      }
-    } as unknown) as Model<Document>;
+    listControllerWithQuery.model = mockModel({ count });
 
-    const meta = await (<any>listControllerWithQuery).getPaginationMeta();
+    const meta = await listControllerWithQuery.getPaginationMeta();
     expect(meta).toEqual({
       totalDocs: count,
       totalPages: 2,
@@ -151,14 +143,9 @@ describe("Should get pagination meta", () => {
 
   it("Should get pagination meta with previous page", async () => {
     const count = 30;
-    (<any>listControllerWithQuery).model = ({
-      // eslint-disable-next-line no-empty-pattern
-      countDocuments({}) {
-        return Promise.resolve(count);
-      }
-    } as unknown) as Model<Document>;
+    listControllerWithQuery.model = mockModel({ count });
 
-    const meta = await (<any>listControllerWithQuery).getPaginationMeta();
+    const meta = await listControllerWithQuery.getPaginationMeta();
     expect(meta).toEqual({
       totalDocs: count,
       totalPages: 3,
@@ -169,5 +156,27 @@ describe("Should get pagination meta", () => {
       hasPrevious: true,
       previousPage: 1
     });
+  });
+});
+
+describe("Should get query result", () => {
+  const listControllerWithModel: any = new BaseListController(req, res, next);
+  listControllerWithModel.model = mockModel();
+
+  it("Should call getQueryResult without pagination", async () => {
+    const spyOnPaginatinoParams = jest.spyOn(
+      listControllerWithModel,
+      "getPaginationParams"
+    );
+
+    await listControllerWithModel.getQueryResult();
+    expect(listControllerWithModel.model.find).toBeCalledTimes(1);
+    expect(listControllerWithModel.model.skip).not.toBeCalled();
+    expect(listControllerWithModel.model.limit).not.toBeCalled();
+    expect(listControllerWithModel.model.populate).not.toBeCalled();
+    expect(listControllerWithModel.model.sort).not.toBeCalled();
+    expect(listControllerWithModel.model.select).not.toBeCalled();
+    expect(listControllerWithModel.model.exec).toBeCalledTimes(1);
+    expect(spyOnPaginatinoParams).not.toBeCalled();
   });
 });

@@ -163,20 +163,126 @@ describe("Should get query result", () => {
   const listControllerWithModel: any = new BaseListController(req, res, next);
   listControllerWithModel.model = mockModel();
 
+  const listControllerWithModelAndPagination: any = new BaseListController(
+    mockRequest({ query: { page: "10" } }),
+    res,
+    next
+  );
+  listControllerWithModelAndPagination.usePagination = true;
+  listControllerWithModelAndPagination.model = mockModel({
+    count: 10
+  });
+
   it("Should call getQueryResult without pagination", async () => {
-    const spyOnPaginatinoParams = jest.spyOn(
+    const spyOnPaginationParams = jest.spyOn(
       listControllerWithModel,
       "getPaginationParams"
     );
 
     await listControllerWithModel.getQueryResult();
-    expect(listControllerWithModel.model.find).toBeCalledTimes(1);
+    expect(listControllerWithModel.model.find).toBeCalled();
     expect(listControllerWithModel.model.skip).not.toBeCalled();
     expect(listControllerWithModel.model.limit).not.toBeCalled();
     expect(listControllerWithModel.model.populate).not.toBeCalled();
     expect(listControllerWithModel.model.sort).not.toBeCalled();
     expect(listControllerWithModel.model.select).not.toBeCalled();
-    expect(listControllerWithModel.model.exec).toBeCalledTimes(1);
-    expect(spyOnPaginatinoParams).not.toBeCalled();
+    expect(listControllerWithModel.model.exec).toBeCalled();
+    expect(spyOnPaginationParams).not.toBeCalled();
+  });
+
+  it("Should call getQueryResult with pagination", async () => {
+    const spyOnPaginationParams = jest.spyOn(
+      listControllerWithModelAndPagination,
+      "getPaginationParams"
+    );
+
+    await listControllerWithModelAndPagination.getQueryResult();
+    expect(listControllerWithModelAndPagination.model.find).toBeCalled();
+    expect(listControllerWithModelAndPagination.model.skip).toBeCalledWith(0);
+    expect(listControllerWithModelAndPagination.model.limit).toBeCalled();
+    expect(
+      listControllerWithModelAndPagination.model.populate
+    ).not.toBeCalled();
+    expect(listControllerWithModelAndPagination.model.sort).not.toBeCalled();
+    expect(listControllerWithModelAndPagination.model.select).not.toBeCalled();
+    expect(listControllerWithModelAndPagination.model.exec).toBeCalled();
+    expect(spyOnPaginationParams).toBeCalled();
+  });
+
+  it("Should call getQueryResult with populated fields", async () => {
+    listControllerWithModelAndPagination.populatedFields = [];
+    const spyOnPaginationParams = jest.spyOn(
+      listControllerWithModelAndPagination,
+      "getPaginationParams"
+    );
+
+    await listControllerWithModelAndPagination.getQueryResult();
+    expect(listControllerWithModelAndPagination.model.find).toBeCalled();
+    expect(listControllerWithModelAndPagination.model.skip).toBeCalled();
+    expect(listControllerWithModelAndPagination.model.limit).toBeCalled();
+    expect(listControllerWithModelAndPagination.model.populate).toBeCalled();
+    expect(listControllerWithModelAndPagination.model.sort).not.toBeCalled();
+    expect(listControllerWithModelAndPagination.model.select).not.toBeCalled();
+    expect(listControllerWithModelAndPagination.model.exec).toBeCalled();
+    expect(spyOnPaginationParams).toBeCalled();
+  });
+
+  it("Should call getQueryResult with selected fields", async () => {
+    listControllerWithModelAndPagination.selectedFields = [];
+    const spyOnPaginationParams = jest.spyOn(
+      listControllerWithModelAndPagination,
+      "getPaginationParams"
+    );
+
+    await listControllerWithModelAndPagination.getQueryResult();
+    expect(listControllerWithModelAndPagination.model.find).toBeCalled();
+    expect(listControllerWithModelAndPagination.model.skip).toBeCalled();
+    expect(listControllerWithModelAndPagination.model.limit).toBeCalled();
+    expect(listControllerWithModelAndPagination.model.populate).toBeCalled();
+    expect(listControllerWithModelAndPagination.model.sort).not.toBeCalled();
+    expect(listControllerWithModelAndPagination.model.select).toBeCalled();
+    expect(listControllerWithModelAndPagination.model.exec).toBeCalled();
+    expect(spyOnPaginationParams).toBeCalled();
+  });
+
+  it("Should call getQueryResult with excluded fields", async () => {
+    const controller: any = new BaseListController(req, res, next);
+    controller.usePagination = true;
+    controller.model = mockModel();
+    const excludedFields = ["name", "description"];
+    controller.excludedFields = excludedFields;
+    const spyOnPaginationParams = jest.spyOn(controller, "getPaginationParams");
+
+    await controller.getQueryResult();
+    expect(controller.model.find).toBeCalled();
+    expect(controller.model.skip).toBeCalled();
+    expect(controller.model.limit).toBeCalled();
+    expect(controller.model.populate).not.toBeCalled();
+    expect(controller.model.sort).not.toBeCalled();
+    expect(controller.model.select).toHaveBeenLastCalledWith(
+      expect.stringMatching(
+        excludedFields.map((field) => `-${field}`).join(" ")
+      )
+    );
+    expect(controller.model.exec).toBeCalled();
+    expect(spyOnPaginationParams).toBeCalled();
+  });
+
+  it("Should call getQueryResult with sort object", async () => {
+    listControllerWithModelAndPagination.sortBy = {};
+    const spyOnPaginationParams = jest.spyOn(
+      listControllerWithModelAndPagination,
+      "getPaginationParams"
+    );
+
+    await listControllerWithModelAndPagination.getQueryResult();
+    expect(listControllerWithModelAndPagination.model.find).toBeCalled();
+    expect(listControllerWithModelAndPagination.model.skip).toBeCalled();
+    expect(listControllerWithModelAndPagination.model.limit).toBeCalled();
+    expect(listControllerWithModelAndPagination.model.populate).toBeCalled();
+    expect(listControllerWithModelAndPagination.model.select).toBeCalled();
+    expect(listControllerWithModelAndPagination.model.sort).toBeCalled();
+    expect(listControllerWithModelAndPagination.model.exec).toBeCalled();
+    expect(spyOnPaginationParams).toBeCalled();
   });
 });

@@ -8,12 +8,10 @@ export interface PaginationObject {
   limit: number;
 }
 export interface PaginationMeta {
-  totalDocs: number;
+  count: number;
   totalPages: number;
   page: number;
   limit: number;
-  hasNext: boolean;
   nextPage: number | null;
-  hasPrevious: boolean;
   previousPage: number | null;
 }

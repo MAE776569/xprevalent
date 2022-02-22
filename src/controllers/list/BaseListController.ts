@@ -72,13 +72,11 @@ class BaseListController extends BaseController {
     this.totalPages = lastPage > 0 ? lastPage : 1;
 
     const meta = {
-      totalDocs: count,
+      count,
       totalPages: lastPage,
       page: page < lastPage ? page : this.totalPages,
       limit,
-      hasNext: page < lastPage,
       nextPage: page < lastPage ? page + 1 : null,
-      hasPrevious: page > 1,
       previousPage:
         page > 1 ? (page < lastPage ? page - 1 : lastPage - 1) : null
     };
@@ -88,7 +86,7 @@ class BaseListController extends BaseController {
   protected async getContextObject() {
     if (this.usePagination) {
       const meta = await this.getPaginationMeta();
-      return { meta };
+      return { ...meta };
     } else {
       return {};
     }

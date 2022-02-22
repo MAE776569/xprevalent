@@ -68,14 +68,12 @@ describe("Should get context object", () => {
     listControllerWithPagination.usePagination = true;
     const ctx = await listControllerWithPagination.getContextObject();
 
-    expect(ctx).toHaveProperty("meta", {
-      totalDocs: 1,
+    expect(ctx).toEqual({
+      count: 1,
       totalPages: 1,
       page: 1,
       limit: 10,
-      hasNext: false,
       nextPage: null,
-      hasPrevious: false,
       previousPage: null
     });
   });
@@ -106,13 +104,11 @@ describe("Should get pagination meta", () => {
 
     const meta = await listControllerWithPagination.getPaginationMeta();
     expect(meta).toEqual({
-      totalDocs: count,
+      count,
       totalPages: 2,
       page: 1,
       limit: 10,
-      hasNext: true,
       nextPage: 2,
-      hasPrevious: false,
       previousPage: null
     });
   });
@@ -130,13 +126,11 @@ describe("Should get pagination meta", () => {
 
     const meta = await listControllerWithQuery.getPaginationMeta();
     expect(meta).toEqual({
-      totalDocs: count,
+      count,
       totalPages: 2,
       page: 2,
       limit: 10,
-      hasNext: false,
       nextPage: null,
-      hasPrevious: true,
       previousPage: 1
     });
   });
@@ -147,13 +141,11 @@ describe("Should get pagination meta", () => {
 
     const meta = await listControllerWithQuery.getPaginationMeta();
     expect(meta).toEqual({
-      totalDocs: count,
+      count,
       totalPages: 3,
       page: 2,
       limit: 10,
-      hasNext: true,
       nextPage: 3,
-      hasPrevious: true,
       previousPage: 1
     });
   });

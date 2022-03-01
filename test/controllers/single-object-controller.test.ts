@@ -61,7 +61,6 @@ describe("Should get validation result", () => {
         name: validator.string().notRequired()
       })
     });
-    // validationResult = singleObjectController.validationResult;
     expect(singleObjectController.validationResult).toBeDefined();
   });
 

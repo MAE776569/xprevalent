@@ -15,7 +15,7 @@ class SingleObjectController extends BaseController {
     return this.validation;
   }
 
-  protected validateIdParam() {
+  protected validateIdParam(): boolean {
     const validationSchema = new ValidationSchema({
       params: validator.object({
         [this.idParam]: validator.string().mongoId()

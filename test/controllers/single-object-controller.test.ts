@@ -64,7 +64,7 @@ describe("Should get validation result", () => {
     expect(singleObjectController.validationResult).toBeDefined();
   });
 
-  it("Should get already initialized validatin result", () => {
+  it("Should get already initialized validation result", () => {
     expect(singleObjectController.validationResult).toBeDefined();
   });
 });

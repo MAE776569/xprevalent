@@ -5,7 +5,7 @@ function convertToString(value: any, deep = true): string {
     return value.toISOString();
   } else if (value && typeof value === "object" && value !== null) {
     return JSON.stringify(value);
-  } else if (value && typeof value === "object" && value.toString) {
+  } else if (value && value.toString) {
     if (typeof value.toString !== "function") {
       return Object.getPrototypeOf(value).toString.call(value);
     }

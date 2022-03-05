@@ -13,6 +13,8 @@ function mockModel({ count, data }: ModelInput = {}): Model<Document> {
       return model;
     }),
     find: jest.fn((_filter) => model),
+    findById: jest.fn((_id) => model),
+    findOne: jest.fn((_id, _filter) => model),
     skip: jest.fn((_number) => model),
     limit: jest.fn((_number) => model),
     populate: jest.fn((_populateObject) => model),

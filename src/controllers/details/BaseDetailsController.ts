@@ -21,6 +21,9 @@ class BaseDetailsController extends SingleObjectController {
       const populatedPaths = this.populatedFields.join(" ");
       querySet.populate(populatedPaths);
     }
+    if (this.sortBy) {
+      querySet.sort(this.sortBy);
+    }
     if (this.selectedFields) {
       querySet.select(this.selectedFields);
     } else if (this.excludedFields) {

@@ -46,7 +46,7 @@ describe("Should validate document before creation", () => {
     expect(errors.body).toHaveProperty("email");
   });
 
-  it("Should return document if validation is successfull", async () => {
+  it("Should return document if validation is successful", async () => {
     await createControllerWithRes.handleRequest();
     const validationResult = createControllerWithRes.validationResult;
 

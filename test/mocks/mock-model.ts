@@ -21,6 +21,8 @@ function mockModel({ count, data }: ModelInput = {}): Model<Document> {
     sort: jest.fn((_sortObject) => model),
     select: jest.fn((_selectOptions) => model),
     create: jest.fn((_document) => model),
+    findByIdAndUpdate: jest.fn((_id, _updateSet, _options) => model),
+    findOneAndUpdate: jest.fn((_filter, _updateSet, _options) => model),
     exec: jest.fn(() => Promise.resolve(data || []))
   } as unknown) as Model<Document>;
 

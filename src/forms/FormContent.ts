@@ -2,14 +2,14 @@ import { Request } from "express";
 
 class FormContent {
   protected req!: Request;
-  private initials: { [key: string]: string } = {};
-  private helperText: { [key: string]: string } = {};
+  protected initials: { [key: string]: string } = {};
+  protected helperText: { [key: string]: string } = {};
 
-  private getInitials() {
+  protected getInitials() {
     return this.initials;
   }
 
-  private getHelperText() {
+  protected getHelperText() {
     return this.helperText;
   }
 

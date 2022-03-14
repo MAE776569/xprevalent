@@ -13,7 +13,7 @@ class BaseListController extends BaseController {
   protected readonly model!: Model<Document>;
 
   // Pagination data
-  protected usePagination: boolean = false;
+  protected paginate: boolean = false;
   protected paginateBy: PaginationSettings = {};
   protected totalPages: number = 1;
   private pagination!: PaginationObject;
@@ -84,7 +84,7 @@ class BaseListController extends BaseController {
   }
 
   protected async getContextObject() {
-    if (this.usePagination) {
+    if (this.paginate) {
       const meta = await this.getPaginationMeta();
       return { ...meta };
     } else {
@@ -94,7 +94,7 @@ class BaseListController extends BaseController {
 
   protected getQueryResult() {
     const querySet = this.model.find(this.queryFilter);
-    if (this.usePagination) {
+    if (this.paginate) {
       const { page, limit } = this.getPaginationParams();
       const lastPage = this.totalPages;
       const currentPage = page > lastPage ? lastPage : page;

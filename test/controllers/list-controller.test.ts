@@ -11,7 +11,7 @@ const listController: any = new BaseListController(req, res, next);
 
 describe("List controller should have pagination parameters", () => {
   it("Shouldn't use pagination by default", () => {
-    expect(listController.usePagination).toBe(false);
+    expect(listController.paginate).toBe(false);
   });
 
   it("Should have pagination object", () => {
@@ -65,7 +65,7 @@ describe("Should get context object", () => {
       next
     );
     listControllerWithPagination.model = mockModel({ count: 1 });
-    listControllerWithPagination.usePagination = true;
+    listControllerWithPagination.paginate = true;
     const ctx = await listControllerWithPagination.getContextObject();
 
     expect(ctx).toEqual({
@@ -160,7 +160,7 @@ describe("Should get query result", () => {
     res,
     next
   );
-  listControllerWithModelAndPagination.usePagination = true;
+  listControllerWithModelAndPagination.paginate = true;
   listControllerWithModelAndPagination.model = mockModel({
     count: 10
   });
@@ -239,7 +239,7 @@ describe("Should get query result", () => {
 
   it("Should call getQueryResult with excluded fields", async () => {
     const controller: any = new BaseListController(req, res, next);
-    controller.usePagination = true;
+    controller.paginate = true;
     controller.model = mockModel();
     const excludedFields = ["name", "description"];
     controller.excludedFields = excludedFields;

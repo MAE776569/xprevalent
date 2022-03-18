@@ -1,4 +1,4 @@
-# List All
+# List all
 
 To list all documents just set model variable.
 
@@ -6,7 +6,7 @@ To list all documents just set model variable.
 import { ApiListController } from "xprevalent";
 import UserModel from "models/user";
 
-class UsersListController extends ApiListController {
+class ListController extends ApiListController {
   model = UserModel;
 }
 ```

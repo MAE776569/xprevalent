@@ -30,7 +30,7 @@ class BaseListController extends BaseController {
     const {
       pageParam = "page",
       limitParam = "limit",
-      defaultLimit = 10
+      defaultLimit = 25
     } = this.paginateBy;
 
     return {

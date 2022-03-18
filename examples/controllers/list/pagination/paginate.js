@@ -1,12 +1,7 @@
-# List All
-
-To list all documents just set model variable.
-
-```javascript
 import { ApiListController } from "xprevalent";
 import UserModel from "models/user";
 
 class UsersListController extends ApiListController {
   model = UserModel;
+  paginate = true;
 }
-```

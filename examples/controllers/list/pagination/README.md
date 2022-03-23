@@ -1,6 +1,6 @@
 # List with pagination
 
-To list all documents with pagination set paginate to true.
+To list documents with pagination set paginate to true.
 
 ```javascript
 import { ApiListController } from "xprevalent";

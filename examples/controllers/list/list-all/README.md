@@ -1,6 +1,6 @@
 # List all
 
-To list all documents just set model variable.
+To list all model's documents.
 
 ```javascript
 import { ApiListController } from "xprevalent";

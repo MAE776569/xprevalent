@@ -27,7 +27,7 @@ describe("Should get pagination object", () => {
   it("Should return already calculated pagination", () => {
     expect(listController.getPaginationParams()).toEqual({
       page: 1,
-      limit: 10
+      limit: 25
     });
   });
 
@@ -72,7 +72,7 @@ describe("Should get context object", () => {
       count: 1,
       totalPages: 1,
       page: 1,
-      limit: 10,
+      limit: 25,
       nextPage: null,
       previousPage: null
     });
@@ -99,7 +99,7 @@ describe("Should get pagination meta", () => {
       next
     );
 
-    const count = 20;
+    const count = 50;
     listControllerWithPagination.model = mockModel({ count });
 
     const meta = await listControllerWithPagination.getPaginationMeta();
@@ -107,7 +107,7 @@ describe("Should get pagination meta", () => {
       count,
       totalPages: 2,
       page: 1,
-      limit: 10,
+      limit: 25,
       nextPage: 2,
       previousPage: null
     });
@@ -121,7 +121,7 @@ describe("Should get pagination meta", () => {
   );
 
   it("Should get pagination meta with querying page", async () => {
-    const count = 20;
+    const count = 50;
     listControllerWithQuery.model = mockModel({ count });
 
     const meta = await listControllerWithQuery.getPaginationMeta();
@@ -129,14 +129,14 @@ describe("Should get pagination meta", () => {
       count,
       totalPages: 2,
       page: 2,
-      limit: 10,
+      limit: 25,
       nextPage: null,
       previousPage: 1
     });
   });
 
   it("Should get pagination meta with previous page", async () => {
-    const count = 30;
+    const count = 75;
     listControllerWithQuery.model = mockModel({ count });
 
     const meta = await listControllerWithQuery.getPaginationMeta();
@@ -144,7 +144,7 @@ describe("Should get pagination meta", () => {
       count,
       totalPages: 3,
       page: 2,
-      limit: 10,
+      limit: 25,
       nextPage: 3,
       previousPage: 1
     });

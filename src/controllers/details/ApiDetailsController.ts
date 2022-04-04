@@ -7,8 +7,7 @@ class ApiDetailsController extends BaseDetailsController {
         return this.sendResponse({
           success: false,
           status: 404,
-          message: "Invalid id",
-          error: {}
+          message: "Invalid id"
         });
       }
 
@@ -17,8 +16,7 @@ class ApiDetailsController extends BaseDetailsController {
         return this.sendResponse({
           success: false,
           status: 404,
-          message: "Not found",
-          error: {}
+          message: "Not found"
         });
       }
 

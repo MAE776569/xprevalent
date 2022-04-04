@@ -7,8 +7,7 @@ class ApiEditController extends BaseEditController {
         return this.sendResponse({
           success: false,
           status: 404,
-          message: "Invalid id",
-          error: {}
+          message: "Invalid id"
         });
       }
 
@@ -25,8 +24,7 @@ class ApiEditController extends BaseEditController {
         return this.sendResponse({
           success: false,
           status: 404,
-          message: "Not found",
-          error: {}
+          message: "Not found"
         });
       }
 

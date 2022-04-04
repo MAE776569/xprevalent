@@ -13,7 +13,9 @@ function ApiControllerMixin<T extends Constructor<BaseController>>(
           const queryResult = await this.getQueryResult();
           resObject[this.queryObjectName] = queryResult;
         }
-        return this.res.json(resObject);
+        return this.sendResponse({
+          data: resObject
+        });
       } catch (err) {
         return this.next(err);
       }

@@ -7,12 +7,22 @@ class ViewDeleteController extends FormViewControllerMixin(
   async handleRequest() {
     try {
       if (this.validateIdParam() && !this.deleteOne) {
-        return this.res.sendStatus(404);
+        return this.sendResponse({
+          type: "html",
+          success: false,
+          status: 404,
+          message: "Not Found"
+        });
       }
 
       const queryResult = await this.getQueryResult();
       if (!queryResult) {
-        return this.res.sendStatus(404);
+        return this.sendResponse({
+          type: "html",
+          success: false,
+          status: 404,
+          message: "Not Found"
+        });
       }
 
       const contextObject = await this.getContextObject();

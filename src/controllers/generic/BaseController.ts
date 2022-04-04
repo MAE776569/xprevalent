@@ -1,6 +1,10 @@
 import { Request, Response, NextFunction, Handler } from "express";
 import { Model, Document } from "mongoose";
-import { FillableObject, SortObject } from "../../types/controllers/generic";
+import {
+  FillableObject,
+  SendResponseInput,
+  SortObject
+} from "../../types/controllers/generic";
 import ValidationSchema from "../../validators/ValidationSchema";
 
 /**
@@ -169,6 +173,31 @@ class BaseController {
     return Promise.resolve([]);
   }
 
+  protected sendResponse({
+    type = "json",
+    success = true,
+    status = 200,
+    message,
+    error,
+    data = {}
+  }: SendResponseInput) {
+    const response = {
+      success,
+      message,
+      error,
+      ...data
+    };
+
+    this.res.status(status);
+    if (type === "json") {
+      return this.res.json(response);
+    } else if (type === "html") {
+      return this.res.render(this.viewTemplate!, data);
+    } else {
+      this.res.send(response);
+    }
+  }
+
   /**
    * Handles the request and returns a response
    *
@@ -184,7 +213,7 @@ class BaseController {
         const queryResult = await this.getQueryResult();
         resObject[this.queryObjectName!] = queryResult;
       }
-      return this.res.send(resObject);
+      return this.sendResponse({ type: "generic", data: resObject });
     } catch (err) {
       return this.next(err);
     }

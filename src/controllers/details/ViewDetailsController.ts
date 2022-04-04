@@ -7,18 +7,31 @@ class ViewDetailsController extends BaseDetailsController {
   protected async handleRequest() {
     try {
       if (this.validateIdParam() && !this.findOne) {
-        return this.res.sendStatus(404);
+        return this.sendResponse({
+          type: "html",
+          success: false,
+          status: 404,
+          message: "Not Found"
+        });
       }
 
       const queryResult = await this.getQueryResult();
       if (!queryResult) {
-        return this.res.sendStatus(404);
+        return this.sendResponse({
+          type: "html",
+          success: false,
+          status: 404,
+          message: "Not Found"
+        });
       }
 
       const contextObject = await this.getContextObject();
       const locals = { ...contextObject };
       locals[this.queryObjectName] = queryResult;
-      return this.res.render(this.viewTemplate, locals);
+      return this.sendResponse({
+        type: "html",
+        data: locals
+      });
     } catch (err) {
       return this.next(err);
     }

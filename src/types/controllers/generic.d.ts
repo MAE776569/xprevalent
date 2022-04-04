@@ -6,3 +6,12 @@ export type Constructor<T> = new (...args: any[]) => T;
 export interface SortObject {
   [key: string]: 1 | -1;
 }
+
+export interface SendResponseInput {
+  type?: "json" | "html" | "generic";
+  success?: boolean;
+  status?: number;
+  message?: string;
+  error?: object;
+  data?: any;
+}

@@ -151,10 +151,3 @@ describe("Base controller should have query filter", () => {
     expect(queryFilter).toEqual(filter);
   });
 });
-
-describe("Base controller should have handler which returns response", () => {
-  it("Should call res.send with empty data array", async () => {
-    await BaseController.handle[0](req, res, next);
-    expect(res.send).toHaveBeenCalledWith({ data: [] });
-  });
-});

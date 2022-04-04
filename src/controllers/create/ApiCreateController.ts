@@ -4,8 +4,10 @@ class ApiCreateController extends BaseCreateController {
   protected async handleRequest() {
     try {
       if (this.validationResult.hasError({ location: "body" })) {
-        return this.res.status(422).json({
-          errors: this.validationResult.getErrors({ location: "body" })
+        return this.sendResponse({
+          success: false,
+          status: 422,
+          error: this.validationResult.getErrors({ location: "body" })
         });
       }
 
@@ -13,7 +15,10 @@ class ApiCreateController extends BaseCreateController {
       const contextObject = await this.getContextObject();
       const resObject = { ...contextObject };
       resObject[this.queryObjectName] = queryResult;
-      return this.res.status(201).json(resObject);
+      return this.sendResponse({
+        status: 201,
+        data: resObject
+      });
     } catch (err) {
       return this.next(err);
     }

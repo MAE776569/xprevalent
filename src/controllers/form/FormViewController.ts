@@ -15,7 +15,7 @@ class FormViewController extends BaseController {
       const resObject = { ...contextObject, initials, helperText };
       return this.sendResponse({
         type: "html",
-        data: resObject
+        body: resObject
       });
     } catch (err) {
       return this.next(err);

@@ -120,11 +120,9 @@ class BaseController {
    * @type {Handler[]}
    * @memberof BaseController
    */
-  static get handle(): Handler[] {
-    return [
-      (req: Request, res: Response, next: NextFunction) =>
-        new this(req, res, next).handleRequest()
-    ];
+  static get handle(): Handler {
+    return (req: Request, res: Response, next: NextFunction) =>
+      new this(req, res, next).handleRequest();
   }
 
   /**
@@ -178,21 +176,21 @@ class BaseController {
     success = true,
     status = 200,
     message,
-    error,
-    data = {}
+    error = null,
+    body = {}
   }: SendResponseInput) {
     const response = {
-      success,
+      success: !error && success,
       message,
       error,
-      ...data
+      ...body
     };
 
     this.res.status(status);
     if (type === "json") {
       return this.res.json(response);
     } else if (type === "html") {
-      return this.res.render(this.viewTemplate!, data);
+      return this.res.render(this.viewTemplate!, response);
     } else {
       this.res.send(response);
     }
@@ -213,7 +211,7 @@ class BaseController {
         const queryResult = await this.getQueryResult();
         resObject[this.queryObjectName!] = queryResult;
       }
-      return this.sendResponse({ type: "generic", data: resObject });
+      return this.sendResponse({ type: "generic", body: resObject });
     } catch (err) {
       return this.next(err);
     }

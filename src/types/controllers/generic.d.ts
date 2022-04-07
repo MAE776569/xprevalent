@@ -12,6 +12,6 @@ export interface SendResponseInput {
   success?: boolean;
   status?: number;
   message?: string;
-  error?: object;
-  data?: any;
+  error?: object | null;
+  body?: any;
 }

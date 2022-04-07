@@ -30,7 +30,7 @@ class ViewDetailsController extends BaseDetailsController {
       locals[this.queryObjectName] = queryResult;
       return this.sendResponse({
         type: "html",
-        data: locals
+        body: locals
       });
     } catch (err) {
       return this.next(err);

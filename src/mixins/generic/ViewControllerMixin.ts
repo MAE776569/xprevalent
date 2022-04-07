@@ -18,7 +18,7 @@ function ViewControllerMixin<T extends Constructor<BaseController>>(
         }
         return this.sendResponse({
           type: "html",
-          data: locals
+          body: locals
         });
       } catch (err) {
         return this.next(err);

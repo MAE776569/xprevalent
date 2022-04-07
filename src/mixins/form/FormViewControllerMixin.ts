@@ -34,7 +34,7 @@ function FormViewControllerMixin<T extends Constructor<BaseController>>(
         type: "html",
         success: false,
         error: errors,
-        data: {
+        body: {
           initials,
           helperText,
           ...contextObject

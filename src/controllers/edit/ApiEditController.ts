@@ -32,7 +32,7 @@ class ApiEditController extends BaseEditController {
       const resObject = { ...contextObject };
       resObject[this.queryObjectName] = queryResult;
       return this.sendResponse({
-        data: resObject
+        body: resObject
       });
     } catch (err) {
       return this.next(err);

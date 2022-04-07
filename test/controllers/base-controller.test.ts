@@ -69,12 +69,8 @@ describe("Base controller should have query method", () => {
 });
 
 describe("Base controller should have handler", () => {
-  it("Should be array of one element", () => {
-    expect(BaseController.handle).toHaveLength(1);
-  });
-
-  it("Should be array of function callback", () => {
-    expect(typeof BaseController.handle[0]).toBe("function");
+  it("Should be a function callback", () => {
+    expect(typeof BaseController.handle).toBe("function");
   });
 });
 
@@ -149,5 +145,27 @@ describe("Base controller should have query filter", () => {
     const controllerObject = new Controller(req, res, next);
     const queryFilter = controllerObject.getQueryFilter();
     expect(queryFilter).toEqual(filter);
+  });
+});
+
+describe("Should send response with valid body", () => {
+  it("Should send response with default json", async () => {
+    genericController.sendResponse({});
+    expect(res.json).toHaveBeenLastCalledWith({
+      success: true,
+      error: null
+    });
+  });
+
+  it("Should send response with html response", async () => {
+    const viewTemplate = "main.html";
+    genericController.viewTemplate = viewTemplate;
+    genericController.sendResponse({
+      type: "html"
+    });
+    expect(res.render).toHaveBeenLastCalledWith(viewTemplate, {
+      success: true,
+      error: null
+    });
   });
 });

@@ -5,7 +5,6 @@ class ApiCreateController extends BaseCreateController {
     try {
       if (this.validationResult.hasError({ location: "body" })) {
         return this.sendResponse({
-          success: false,
           status: 422,
           error: this.validationResult.getErrors({ location: "body" })
         });
@@ -17,7 +16,7 @@ class ApiCreateController extends BaseCreateController {
       resObject[this.queryObjectName] = queryResult;
       return this.sendResponse({
         status: 201,
-        data: resObject
+        body: resObject
       });
     } catch (err) {
       return this.next(err);

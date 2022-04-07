@@ -32,7 +32,6 @@ function FormViewControllerMixin<T extends Constructor<BaseController>>(
       const errors = this.validationResult.getErrors({ location: "body" });
       return this.sendResponse({
         type: "html",
-        success: false,
         error: errors,
         body: {
           initials,

@@ -120,9 +120,11 @@ class BaseController {
    * @type {Handler[]}
    * @memberof BaseController
    */
-  static get handle(): Handler {
-    return (req: Request, res: Response, next: NextFunction) =>
-      new this(req, res, next).handleRequest();
+  static get handle(): Handler[] {
+    return [
+      (req: Request, res: Response, next: NextFunction) =>
+        new this(req, res, next).handleRequest()
+    ];
   }
 
   /**

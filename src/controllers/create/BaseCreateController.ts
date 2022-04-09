@@ -10,9 +10,14 @@ class BaseCreateController extends BaseController {
 
   // Validation
   protected validationSchema!: ValidationSchema;
+  private validation!: ValidationObject;
 
   protected get validationResult(): ValidationObject {
-    return this.validationSchema.validate(this.req);
+    if (this.validation) {
+      return this.validation;
+    }
+    this.validation = this.validationSchema.validate(this.req);
+    return this.validation;
   }
 
   protected getDocument(): FillableObject {

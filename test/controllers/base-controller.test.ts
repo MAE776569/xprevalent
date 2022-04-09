@@ -69,21 +69,12 @@ describe("Base controller should have query method", () => {
 });
 
 describe("Base controller should have handler", () => {
+  it("Should be array of one element", () => {
+    expect(BaseController.handle).toHaveLength(1);
+  });
+
   it("Should be array of function callback", () => {
-    expect(typeof BaseController.handle).toBe("function");
-  });
-});
-
-describe("Base controller should have getInstance", () => {
-  it("Should be an instance of base class", () => {
-    const instance = BaseController.getInstance(req, res, next);
-    expect(instance).toBeInstanceOf(BaseController);
-  });
-
-  it("Should call getInstance when calling handle", async () => {
-    const getInstanceSpy = jest.spyOn(BaseController, "getInstance");
-    await BaseController.handle(req, res, next);
-    expect(getInstanceSpy).toHaveBeenCalledTimes(1);
+    expect(typeof BaseController.handle[0]).toBe("function");
   });
 });
 
@@ -179,6 +170,15 @@ describe("Should send response with valid body", () => {
     expect(res.render).toHaveBeenLastCalledWith(viewTemplate, {
       success: true,
       error: null
+    });
+  });
+
+  it("Should call res.send with empty data array", async () => {
+    await BaseController.handle[0](req, res, next);
+    expect(res.send).toHaveBeenCalledWith({
+      data: [],
+      error: null,
+      success: true
     });
   });
 });

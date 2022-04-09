@@ -113,24 +113,6 @@ class BaseController {
   protected validationSchema?: ValidationSchema;
 
   /**
-   *
-   *
-   * @static
-   * @param {Request} req
-   * @param {Response} res
-   * @param {NextFunction} next
-   * @return {BaseController} new instance of controller
-   * @memberof BaseController
-   */
-  static getInstance(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): BaseController {
-    return new this(req, res, next);
-  }
-
-  /**
    * The controller handler for handling the request
    *
    * @readonly
@@ -138,9 +120,11 @@ class BaseController {
    * @type {Handler[]}
    * @memberof BaseController
    */
-  static get handle(): Handler {
-    return (req: Request, res: Response, next: NextFunction) =>
-      this.getInstance(req, res, next).handleRequest();
+  static get handle(): Handler[] {
+    return [
+      (req: Request, res: Response, next: NextFunction) =>
+        new this(req, res, next).handleRequest()
+    ];
   }
 
   /**

@@ -69,8 +69,21 @@ describe("Base controller should have query method", () => {
 });
 
 describe("Base controller should have handler", () => {
-  it("Should be a function callback", () => {
+  it("Should be array of function callback", () => {
     expect(typeof BaseController.handle).toBe("function");
+  });
+});
+
+describe("Base controller should have getInstance", () => {
+  it("Should be an instance of base class", () => {
+    const instance = BaseController.getInstance(req, res, next);
+    expect(instance).toBeInstanceOf(BaseController);
+  });
+
+  it("Should call getInstance when calling handle", async () => {
+    const getInstanceSpy = jest.spyOn(BaseController, "getInstance");
+    await BaseController.handle(req, res, next);
+    expect(getInstanceSpy).toHaveBeenCalledTimes(1);
   });
 });
 

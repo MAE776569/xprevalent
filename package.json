@@ -12,7 +12,7 @@
     "prettier:fix": "prettier --write .",
     "lint": "eslint src/**",
     "test": "jest",
-    "coverage": "jest --coverage"
+    "test:coverage": "jest --coverage"
   },
   "repository": {
     "type": "git",

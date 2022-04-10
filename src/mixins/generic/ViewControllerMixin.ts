@@ -16,7 +16,10 @@ function ViewControllerMixin<T extends Constructor<BaseController>>(
           const queryResult = await this.getQueryResult();
           locals[this.queryObjectName] = queryResult;
         }
-        return this.res.render(this.viewTemplate, locals);
+        return this.sendResponse({
+          type: "html",
+          body: locals
+        });
       } catch (err) {
         return this.next(err);
       }

@@ -5,7 +5,12 @@ class ViewEditController extends FormViewControllerMixin(BaseEditController) {
   async handleRequest() {
     try {
       if (this.validateIdParam() && !this.updateOne) {
-        return this.res.sendStatus(404);
+        return this.sendResponse({
+          type: "html",
+          success: false,
+          status: 404,
+          message: "Not Found"
+        });
       }
 
       const contextObject = await this.getContextObject();
@@ -15,7 +20,12 @@ class ViewEditController extends FormViewControllerMixin(BaseEditController) {
 
       const queryResult = await this.getQueryResult();
       if (!queryResult) {
-        return this.res.sendStatus(404);
+        return this.sendResponse({
+          type: "html",
+          success: false,
+          status: 404,
+          message: "Not Found"
+        });
       }
 
       const resObject = { ...contextObject };

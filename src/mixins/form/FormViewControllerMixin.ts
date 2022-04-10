@@ -27,14 +27,17 @@ function FormViewControllerMixin<T extends Constructor<BaseController>>(
       return this.res.redirect(successUrl);
     }
 
-    protected formInvalid(contextObject: FillableObject): void {
+    protected formInvalid(contextObject: FillableObject) {
       const { initials, helperText } = this.formContent.getFormData(this.req);
       const errors = this.validationResult.getErrors({ location: "body" });
-      return this.res.render(this.viewTemplate, {
-        errors,
-        initials,
-        helperText,
-        ...contextObject
+      return this.sendResponse({
+        type: "html",
+        error: errors,
+        body: {
+          initials,
+          helperText,
+          ...contextObject
+        }
       });
     }
   }

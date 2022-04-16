@@ -68,7 +68,7 @@ describe("Should get context object", () => {
     listControllerWithPagination.paginate = true;
     const ctx = await listControllerWithPagination.getContextObject();
 
-    expect(ctx).toEqual({
+    expect(ctx).toHaveProperty("pagination", {
       count: 1,
       totalPages: 1,
       page: 1,

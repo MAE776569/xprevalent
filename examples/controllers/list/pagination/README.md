@@ -1,6 +1,6 @@
 # List with pagination
 
-To list documents with pagination set paginate to true.
+To list documents with pagination; set paginate to true.
 
 ```javascript
 import { ApiListController } from "xprevalent";
@@ -26,6 +26,87 @@ class UsersListController extends ApiListController {
     limitParam: "offset",
     // use a default limit of 30 if limit is not provided
     defaultLimit: 30
+  }
+}
+```
+
+By default the controller will get the document count using `getDocumentsCount()` and will use `getQueryFilter()` as the filter used to count documents. you can override `getDocumentsCount()` to control how the documents is counted.
+
+```javascript
+class UsersListController extends ApiListController {
+  ...
+  async getDocumentsCount() {
+    const count = await this.model.countDocuments({ deletedAt: { $eq: null } });
+    return count;
+  }
+}
+```
+
+By default the controller will return a pagination object in the response with the following structure:
+
+```json
+{
+  count,
+  totalPages,
+  page,
+  limit,
+  nextPage,
+  previousPage
+}
+```
+
+if you want to control what data is returned in this object you can override `getPaginationMeta()`.
+
+```javascript
+class UsersListController extends ApiListController {
+  ...
+  async getPaginationMeta() {
+    const count = await this.getDocumentsCount();
+    const { page, limit } = this.getPaginationParams();
+    const totalPages = Math.ceil(count / limit);
+
+    const meta = {
+      count,
+      totalPages,
+      page: ...,
+      limit,
+      nextPage: ...,
+      previousPage: ...
+    };
+    return meta;
+  }
+}
+```
+
+To return any additional data with the response you can override `getContextObject()`.
+
+```javascript
+class UsersListController extends ApiListController {
+  ...
+  async getContextObject() {
+    const context = await super.getContextObject();
+    // get any data you want
+    const user = await getUserData();
+    return {
+      ...context,
+      user
+    };
+  }
+}
+```
+
+To control how data is fetched from database you can override `getQueryResult()`.
+
+```javascript
+class UsersListController extends ApiListController {
+  ...
+  async getQueryResult() {
+    const queryFilter = this.getQueryFilter();
+    const users = await this.model.find({
+      ...queryFilter,
+      active: { $eq: true }
+    });
+    return users;
   }
 }
 ```

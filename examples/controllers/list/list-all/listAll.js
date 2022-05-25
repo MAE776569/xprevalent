@@ -1,6 +1,6 @@
 import { ApiListController } from "xprevalent";
-import UserModel from "models/user";
+import userModel from "models/user";
 
-class ListController extends ApiListController {
-  model = UserModel;
+class UsersListController extends ApiListController {
+  model = userModel;
 }

@@ -4,10 +4,10 @@ To list documents with pagination set paginate to true.
 
 ```javascript
 import { ApiListController } from "xprevalent";
-import UserModel from "models/user";
+import userModel from "models/user";
 
-class ListController extends ApiListController {
-  model = UserModel;
+class UsersListController extends ApiListController {
+  model = userModel;
   paginate = true;
 }
 ```
@@ -17,7 +17,7 @@ By default the controller will get the pagination parameters from request query 
 To override the default parameters, you can set `paginateBy` object.
 
 ```javascript
-class ListController extends ApiListController {
+class UsersListController extends ApiListController {
   ...
   paginateBy = {
     // use req.query.cursor to get page number

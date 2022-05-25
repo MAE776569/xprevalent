@@ -18,7 +18,6 @@ describe("Should get query result", () => {
     expect(deleteController.model.populate).not.toBeCalled();
     expect(deleteController.model.sort).not.toBeCalled();
     expect(deleteController.model.select).not.toBeCalled();
-    expect(deleteController.model.exec).toBeCalled();
   });
 
   it("Should delete one document", async () => {
@@ -36,7 +35,6 @@ describe("Should get query result", () => {
     expect(deleteOneDetailsController.model.populate).not.toBeCalled();
     expect(deleteOneDetailsController.model.sort).not.toBeCalled();
     expect(deleteOneDetailsController.model.select).not.toBeCalled();
-    expect(deleteOneDetailsController.model.exec).toBeCalled();
   });
 
   it("Should call getQueryResult with populated fields", async () => {
@@ -48,7 +46,6 @@ describe("Should get query result", () => {
     expect(deleteController.model.populate).toBeCalled();
     expect(deleteController.model.sort).not.toBeCalled();
     expect(deleteController.model.select).not.toBeCalled();
-    expect(deleteController.model.exec).toBeCalled();
   });
 
   it("Should call getQueryResult with selected fields", async () => {
@@ -63,7 +60,6 @@ describe("Should get query result", () => {
     expect(deleteController.model.select).toHaveBeenLastCalledWith(
       selectedFields
     );
-    expect(deleteController.model.exec).toBeCalled();
   });
 
   it("Should call getQueryResult with excluded fields", async () => {
@@ -81,7 +77,6 @@ describe("Should get query result", () => {
         excludedFields.map((field) => `-${field}`).join(" ")
       )
     );
-    expect(deleteController.model.exec).toBeCalled();
   });
 
   it("Should call getQueryResult with sort object", async () => {
@@ -93,6 +88,5 @@ describe("Should get query result", () => {
     expect(deleteController.model.populate).toBeCalled();
     expect(deleteController.model.sort).toBeCalled();
     expect(deleteController.model.select).toBeCalled();
-    expect(deleteController.model.exec).toBeCalled();
   });
 });

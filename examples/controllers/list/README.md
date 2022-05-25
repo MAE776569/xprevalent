@@ -1,4 +1,15 @@
-# List with pagination
+# List Controller
+
+To list all documents:
+
+```javascript
+import { ApiListController } from "xprevalent";
+import userModel from "models/user";
+
+class UsersListController extends ApiListController {
+  model = userModel;
+}
+```
 
 To list documents with pagination; set paginate to true.
 
@@ -77,3 +88,50 @@ class UsersListController extends ApiListController {
   }
 }
 ```
+
+To control the filter that is used to count documents and to fetch data from database; you can override `getQueryFilter()`.
+
+```javascript
+class UsersListController extends ApiListController {
+  ...
+  async getQueryFilter() {
+    return {
+      isActive: { $eq: Boolean(this.req.query.isActive) }
+    }
+  }
+}
+```
+
+To control how data is fetched from database you can override `getQueryResult()`.
+
+```javascript
+class UsersListController extends ApiListController {
+  ...
+  async getQueryResult() {
+    const queryFilter = this.getQueryFilter();
+    const users = await this.model.find({
+      ...queryFilter,
+      isActive: { $eq: true }
+    });
+    return users;
+  }
+}
+```
+
+To return any additional data with the response you can override `getContextObject()`.
+
+```javascript
+class UsersListController extends ApiListController {
+  ...
+  async getContextObject() {
+    const context = await super.getContextObject();
+    // get any data you want
+    const user = await getUserData();
+    return {
+      ...context,
+      user
+    };
+  }
+}
+```
+

@@ -93,7 +93,9 @@ class BaseListController extends BaseController {
   }
 
   protected getQueryResult() {
-    const querySet = this.model.find(this.queryFilter);
+    let querySet;
+    // eslint-disable-next-line prefer-const
+    querySet = this.model.find(this.queryFilter);
     if (this.paginate) {
       const { page, limit } = this.getPaginationParams();
       const lastPage = this.totalPages;
@@ -101,8 +103,7 @@ class BaseListController extends BaseController {
       querySet.skip((currentPage - 1) * limit).limit(limit);
     }
     if (this.populatedFields) {
-      const populatedPaths = this.populatedFields.join(" ");
-      querySet.populate(populatedPaths);
+      querySet.populate(this.populatedFields);
     }
     if (this.sortBy) {
       querySet.sort(this.sortBy);
@@ -115,7 +116,7 @@ class BaseListController extends BaseController {
         .join(" ");
       querySet.select(excludedPaths);
     }
-    return querySet.exec();
+    return querySet;
   }
 }
 

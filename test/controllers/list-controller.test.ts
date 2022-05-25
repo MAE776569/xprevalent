@@ -178,7 +178,6 @@ describe("Should get query result", () => {
     expect(listControllerWithModel.model.populate).not.toBeCalled();
     expect(listControllerWithModel.model.sort).not.toBeCalled();
     expect(listControllerWithModel.model.select).not.toBeCalled();
-    expect(listControllerWithModel.model.exec).toBeCalled();
     expect(spyOnPaginationParams).not.toBeCalled();
   });
 
@@ -197,7 +196,6 @@ describe("Should get query result", () => {
     ).not.toBeCalled();
     expect(listControllerWithModelAndPagination.model.sort).not.toBeCalled();
     expect(listControllerWithModelAndPagination.model.select).not.toBeCalled();
-    expect(listControllerWithModelAndPagination.model.exec).toBeCalled();
     expect(spyOnPaginationParams).toBeCalled();
   });
 
@@ -215,7 +213,6 @@ describe("Should get query result", () => {
     expect(listControllerWithModelAndPagination.model.populate).toBeCalled();
     expect(listControllerWithModelAndPagination.model.sort).not.toBeCalled();
     expect(listControllerWithModelAndPagination.model.select).not.toBeCalled();
-    expect(listControllerWithModelAndPagination.model.exec).toBeCalled();
     expect(spyOnPaginationParams).toBeCalled();
   });
 
@@ -233,7 +230,6 @@ describe("Should get query result", () => {
     expect(listControllerWithModelAndPagination.model.populate).toBeCalled();
     expect(listControllerWithModelAndPagination.model.sort).not.toBeCalled();
     expect(listControllerWithModelAndPagination.model.select).toBeCalled();
-    expect(listControllerWithModelAndPagination.model.exec).toBeCalled();
     expect(spyOnPaginationParams).toBeCalled();
   });
 
@@ -256,7 +252,6 @@ describe("Should get query result", () => {
         excludedFields.map((field) => `-${field}`).join(" ")
       )
     );
-    expect(controller.model.exec).toBeCalled();
     expect(spyOnPaginationParams).toBeCalled();
   });
 
@@ -274,7 +269,6 @@ describe("Should get query result", () => {
     expect(listControllerWithModelAndPagination.model.populate).toBeCalled();
     expect(listControllerWithModelAndPagination.model.select).toBeCalled();
     expect(listControllerWithModelAndPagination.model.sort).toBeCalled();
-    expect(listControllerWithModelAndPagination.model.exec).toBeCalled();
     expect(spyOnPaginationParams).toBeCalled();
   });
 });

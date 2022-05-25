@@ -18,8 +18,7 @@ class BaseDetailsController extends SingleObjectController {
       querySet = this.model.findById(id);
     }
     if (this.populatedFields) {
-      const populatedPaths = this.populatedFields.join(" ");
-      querySet.populate(populatedPaths);
+      querySet.populate(this.populatedFields);
     }
     if (this.sortBy) {
       querySet.sort(this.sortBy);
@@ -32,7 +31,7 @@ class BaseDetailsController extends SingleObjectController {
         .join(" ");
       querySet.select(excludedPaths);
     }
-    return querySet.exec();
+    return querySet;
   }
 }
 

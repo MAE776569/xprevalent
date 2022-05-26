@@ -3,9 +3,6 @@
 To list all documents:
 
 ```javascript
-import { ApiListController } from "xprevalent";
-import userModel from "models/user";
-
 class UsersListController extends ApiListController {
   model = userModel;
 }
@@ -14,9 +11,6 @@ class UsersListController extends ApiListController {
 To list documents with pagination; set paginate to true.
 
 ```javascript
-import { ApiListController } from "xprevalent";
-import userModel from "models/user";
-
 class UsersListController extends ApiListController {
   model = userModel;
   paginate = true;

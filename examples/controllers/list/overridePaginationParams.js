@@ -1,5 +1,5 @@
-import { ApiListController } from "xprevalent";
-import userModel from "models/user";
+const { ApiListController } = require("xprevalent");
+const userModel = require("models/user");
 
 class UsersListController extends ApiListController {
   model = userModel;
@@ -14,3 +14,5 @@ class UsersListController extends ApiListController {
     defaultLimit: 30
   };
 }
+
+module.exports = UsersListController;

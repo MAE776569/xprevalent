@@ -12,7 +12,7 @@ const editController: any = new BaseEditController(req, res, next);
 const validatorSchema = {
   body: validator.object({
     name: validator.string().required(),
-    email: validator.string().normalizeEmail().email().required()
+    email: validator.string().email().required()
   })
 };
 const userValidationSchema: ValidationSchema = new ValidationSchema(

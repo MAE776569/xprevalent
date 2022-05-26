@@ -120,12 +120,11 @@ class UsersListController extends ApiListController {
   async getContextObject() {
     const context = await super.getContextObject();
     // get any data you want
-    const user = await getUserData();
+    const additionalData = await getAdditionalData();
     return {
       ...context,
-      user
+      ...additionalData
     };
   }
 }
 ```
-

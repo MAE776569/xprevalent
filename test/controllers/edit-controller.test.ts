@@ -149,7 +149,7 @@ describe("Should get query set", () => {
       editControllerWithRes.model.findByIdAndUpdate
     ).toHaveBeenLastCalledWith(paramId, validUser, { new: true });
     expect(editControllerWithRes.model.populate).toHaveBeenLastCalledWith(
-      editControllerWithRes.populatedFields.join(" ")
+      editControllerWithRes.populatedFields
     );
     expect(editControllerWithRes.model.sort).not.toBeCalled();
     expect(editControllerWithRes.model.exec).toBeCalled();

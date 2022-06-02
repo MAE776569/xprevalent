@@ -101,8 +101,7 @@ class BaseListController extends BaseController {
       querySet.skip((currentPage - 1) * limit).limit(limit);
     }
     if (this.populatedFields) {
-      const populatedPaths = this.populatedFields.join(" ");
-      querySet.populate(populatedPaths);
+      querySet.populate(this.populatedFields);
     }
     if (this.sortBy) {
       querySet.sort(this.sortBy);

@@ -1,6 +1,6 @@
 import BaseController from "./controllers/generic/BaseController";
 import BaseListController from "./controllers/list/BaseListController";
-import ApiControllerMixin from "./mixins/generic/ApiControllerMixin";
+import ApiControllerMixin from "./mixins/ApiControllerMixin";
 import ApiDetailsController from "./controllers/details/ApiDetailsController";
 import ApiCreateController from "./controllers/create/ApiCreateController";
 import ApiEditController from "./controllers/edit/ApiEditController";

@@ -63,12 +63,12 @@ class UserDetailsController extends ApiDetailsController {
 To return any additional data with the response you can override `getContextObject()`.
 
 ```javascript
-class UserDetailsController extends ApiListController {
+class UserDetailsController extends ApiDetailsController {
   ...
   async getContextObject() {
     const context = await super.getContextObject();
-    // get any data you want
-    const additionalData = await getAdditionalData();
+    // get any data you want to return in response
+    const additionalData = this.getAdditionalData();
     return {
       ...context,
       ...additionalData

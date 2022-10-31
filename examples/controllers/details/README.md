@@ -53,13 +53,9 @@ To control how data is fetched from database you can override `getQueryResult()`
 ```javascript
 class UserDetailsController extends ApiDetailsController {
   ...
-  async getQueryResult() {
-    const queryFilter = this.getQueryFilter();
-    const user = await this.model.findOne({
-      ...queryFilter,
-      isActive: { $eq: true }
-    });
-    return user;
+  getQueryResult() {
+    const id = this.req.params[this.idParam];
+    return this.model.findById(id);
   }
 }
 ```

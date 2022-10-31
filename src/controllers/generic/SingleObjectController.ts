@@ -1,5 +1,5 @@
 import { ValidationObject } from "../../types/validation/schema";
-import { validator, ValidationSchema } from "../../validators";
+import { validator, ValidationSchema } from "../../validator";
 import BaseController from "./BaseController";
 
 class SingleObjectController extends BaseController {

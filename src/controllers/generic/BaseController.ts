@@ -5,7 +5,7 @@ import {
   SendResponseInput,
   SortObject
 } from "../../types/controllers/generic";
-import ValidationSchema from "../../validators/ValidationSchema";
+import ValidationSchema from "../../validator/ValidationSchema";
 
 /**
  * Generic controller that returns a response

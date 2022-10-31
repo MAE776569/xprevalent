@@ -3,7 +3,7 @@ import BaseCreateController from "../../src/controllers/create/BaseCreateControl
 import mockRequest from "../mocks/mock-request";
 import mockResponse from "../mocks/mock-response";
 import mockModel from "../mocks/mock-model";
-import { ValidationSchema, validator } from "../../src/validators";
+import { ValidationSchema, validator } from "../../src/validator";
 
 const req = mockRequest({ body: {} });
 const res = mockResponse();

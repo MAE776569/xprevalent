@@ -1,6 +1,6 @@
 import { NextFunction } from "express";
 import SingleObjectController from "../../src/controllers/generic/SingleObjectController";
-import { ValidationSchema, validator } from "../../src/validators";
+import { ValidationSchema, validator } from "../../src/validator";
 import mockRequest from "../mocks/mock-request";
 import mockResponse from "../mocks/mock-response";
 

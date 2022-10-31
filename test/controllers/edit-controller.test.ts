@@ -3,16 +3,16 @@ import BaseUpdateController from "../../src/controllers/update/BaseUpdateControl
 import mockRequest from "../mocks/mock-request";
 import mockResponse from "../mocks/mock-response";
 import mockModel from "../mocks/mock-model";
-import { ValidationSchema, validator } from "../../src/validator";
+import { ValidationSchema, schema } from "../../src/validator";
 
 const req = mockRequest({ body: {} });
 const res = mockResponse();
 const next: NextFunction = jest.fn();
 const editController: any = new BaseUpdateController(req, res, next);
 const validatorSchema = {
-  body: validator.object({
-    name: validator.string().required(),
-    email: validator.string().email().required()
+  body: schema.object({
+    name: schema.string().required(),
+    email: schema.string().email().required()
   })
 };
 const userValidationSchema: ValidationSchema = new ValidationSchema(

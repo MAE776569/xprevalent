@@ -26,7 +26,7 @@ class UserDeleteController extends ApiDeleteController {
 }
 ```
 
-To delete a single document using query filter, you can set `deleteOne` to true and override `getQueryFilter()` to return the filter used to get the document to be deleted.
+To delete a single document using query filter, you can set `deleteOne` to `true` and override `getQueryFilter()` to return the filter used to get the document to be deleted.
 
 ```javascript
 class UserDeleteController extends ApiDeleteController {

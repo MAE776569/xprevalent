@@ -1,5 +1,5 @@
 import { ValidationObject } from "../../types/validation/schema";
-import { validator, ValidationSchema } from "../../validator";
+import { schema, ValidationSchema } from "../../validator";
 import BaseController from "./BaseController";
 
 class SingleObjectController extends BaseController {
@@ -18,8 +18,8 @@ class SingleObjectController extends BaseController {
 
   protected validateIdParam(): boolean {
     const validationSchema = new ValidationSchema({
-      params: validator.object({
-        [this.idParam]: validator.string().mongoId()
+      params: schema.object({
+        [this.idParam]: schema.string().mongoId()
       })
     });
     const validationResult = validationSchema.validate(this.req);

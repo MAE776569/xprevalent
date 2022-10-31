@@ -8,7 +8,7 @@ class UsersListController extends ApiListController {
 }
 ```
 
-To list documents with pagination; set paginate to true.
+To list documents with pagination; set paginate to `true`.
 
 ```javascript
 class UsersListController extends ApiListController {

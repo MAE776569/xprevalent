@@ -73,7 +73,7 @@ class UserUpdateController extends ApiUpdateController {
 }
 ```
 
-By setting `upsert` to true if the document is not found in database, it will be created.
+By setting `upsert` to `true` if the document is not found in database, it will be created.
 
 ```javascript
 class UserUpdateController extends ApiUpdateController {

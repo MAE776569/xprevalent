@@ -24,20 +24,16 @@ console.log(validationResult.hasError({ location: "body", name: "email" }));
 // will return false as body[name] is valid
 console.log(validationResult.hasError({ location: "body", name: "name" }));
 
-// will return { body: { name: "Mohamed" } }
+// will return {} as body is invalid
 console.log(validationResult.getValue());
-// will return { name: "Mohamed" }
-console.log(validationResult.getValue({ location: "body" }));
-// will return undefined as email is invalid
-console.log(validationResult.getValue({ location: "body", name: "email" }));
-// will return Mohamed
-console.log(validationResult.getValue({ location: "body", name: "name" }));
+// will return undefined as body is invalid
+console.log(validationResult.getValue("body"));
 
-// will return { body: { email: "Invalid email" } }
+// will return { body: { email: "email is a required field" } }
 console.log(validationResult.getErrors());
-// will return { email: "Invalid email" }
+// will return { email: "email is a required field" }
 console.log(validationResult.getErrors({ location: "body" }));
-// will return "Invalid email"
+// will return "email is a required field"
 console.log(validationResult.getErrors({ location: "body", name: "email" }));
 // will return undefined as name is valid
 console.log(validationResult.getErrors({ location: "body", name: "name" }));

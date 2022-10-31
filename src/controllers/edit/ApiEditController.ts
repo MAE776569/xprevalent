@@ -4,24 +4,36 @@ class ApiEditController extends BaseEditController {
   protected async handleRequest() {
     try {
       if (this.validateIdParam() && !this.updateOne) {
-        return this.res.status(404).json({ message: "Invalid id" });
+        return this.sendResponse({
+          success: false,
+          status: 404,
+          message: "Invalid id"
+        });
       }
 
       if (this.validationResult.hasError({ location: "body" })) {
-        return this.res.status(422).json({
-          errors: this.validationResult.getErrors({ location: "body" })
+        return this.sendResponse({
+          success: false,
+          status: 422,
+          error: this.validationResult.getErrors({ location: "body" })
         });
       }
 
       const queryResult = await this.getQueryResult();
       if (!queryResult) {
-        return this.res.status(404).json({ message: "Not found" });
+        return this.sendResponse({
+          success: false,
+          status: 404,
+          message: "Not found"
+        });
       }
 
       const contextObject = await this.getContextObject();
       const resObject = { ...contextObject };
       resObject[this.queryObjectName] = queryResult;
-      return this.res.json(resObject);
+      return this.sendResponse({
+        body: resObject
+      });
     } catch (err) {
       return this.next(err);
     }

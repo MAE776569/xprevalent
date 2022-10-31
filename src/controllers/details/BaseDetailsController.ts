@@ -31,7 +31,7 @@ class BaseDetailsController extends SingleObjectController {
         .join(" ");
       querySet.select(excludedPaths);
     }
-    return querySet.exec();
+    return querySet;
   }
 }
 

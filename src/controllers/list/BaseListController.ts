@@ -71,7 +71,7 @@ class BaseListController extends BaseController {
     const lastPage = Math.ceil(count / limit);
     this.totalPages = lastPage > 0 ? lastPage : 1;
 
-    const meta = {
+    const pagination = {
       count,
       totalPages: lastPage,
       page: page < lastPage ? page : this.totalPages,
@@ -81,20 +81,22 @@ class BaseListController extends BaseController {
         page > 1 ? (page < lastPage ? page - 1 : lastPage - 1) : null
     };
 
-    return meta;
+    return pagination;
   }
 
   protected async getContextObject() {
     if (this.paginate) {
-      const meta = await this.getPaginationMeta();
-      return { ...meta };
+      const pagination = await this.getPaginationMeta();
+      return { pagination };
     } else {
       return {};
     }
   }
 
   protected getQueryResult() {
-    const querySet = this.model.find(this.queryFilter);
+    let querySet;
+    // eslint-disable-next-line prefer-const
+    querySet = this.model.find(this.queryFilter);
     if (this.paginate) {
       const { page, limit } = this.getPaginationParams();
       const lastPage = this.totalPages;
@@ -115,7 +117,7 @@ class BaseListController extends BaseController {
         .join(" ");
       querySet.select(excludedPaths);
     }
-    return querySet.exec();
+    return querySet;
   }
 }
 

@@ -74,7 +74,6 @@ describe("Should get query set", () => {
     expect(editControllerWithRes.model.populate).not.toBeCalled();
     expect(editControllerWithRes.model.sort).not.toBeCalled();
     expect(editControllerWithRes.model.select).not.toBeCalled();
-    expect(editControllerWithRes.model.exec).toBeCalled();
     expect(getUpdateSetSpy).toHaveBeenCalled();
   });
 
@@ -89,7 +88,6 @@ describe("Should get query set", () => {
     expect(editControllerWithRes.model.populate).not.toBeCalled();
     expect(editControllerWithRes.model.sort).not.toBeCalled();
     expect(editControllerWithRes.model.select).not.toBeCalled();
-    expect(editControllerWithRes.model.exec).toBeCalled();
   });
 
   it("Should update one document", async () => {
@@ -103,7 +101,6 @@ describe("Should get query set", () => {
     expect(editControllerWithRes.model.populate).not.toBeCalled();
     expect(editControllerWithRes.model.sort).not.toBeCalled();
     expect(editControllerWithRes.model.select).not.toBeCalled();
-    expect(editControllerWithRes.model.exec).toBeCalled();
     expect(getUpdateSetSpy).toHaveBeenCalled();
   });
 
@@ -121,7 +118,6 @@ describe("Should get query set", () => {
     expect(editControllerWithRes.model.select).toHaveBeenLastCalledWith(
       editControllerWithRes.selectedFields
     );
-    expect(editControllerWithRes.model.exec).toBeCalled();
   });
 
   it("Should exclude document fields", async () => {
@@ -137,7 +133,6 @@ describe("Should get query set", () => {
     expect(editControllerWithRes.model.select).toHaveBeenLastCalledWith(
       editControllerWithRes.excludedFields.map((item) => `-${item}`).join(" ")
     );
-    expect(editControllerWithRes.model.exec).toBeCalled();
   });
 
   it("Should populate document fields", async () => {
@@ -152,7 +147,6 @@ describe("Should get query set", () => {
       editControllerWithRes.populatedFields
     );
     expect(editControllerWithRes.model.sort).not.toBeCalled();
-    expect(editControllerWithRes.model.exec).toBeCalled();
   });
 
   it("Should sort documents", async () => {
@@ -164,6 +158,5 @@ describe("Should get query set", () => {
       editControllerWithRes.model.findByIdAndUpdate
     ).toHaveBeenLastCalledWith(paramId, validUser, { new: true });
     expect(editControllerWithRes.model.sort).toBeCalled();
-    expect(editControllerWithRes.model.exec).toBeCalled();
   });
 });

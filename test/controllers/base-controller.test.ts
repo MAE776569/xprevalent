@@ -152,9 +152,33 @@ describe("Base controller should have query filter", () => {
   });
 });
 
-describe("Base controller should have handler which returns response", () => {
+describe("Should send response with valid body", () => {
+  it("Should send response with default json", async () => {
+    genericController.sendResponse({});
+    expect(res.json).toHaveBeenLastCalledWith({
+      success: true,
+      error: null
+    });
+  });
+
+  it("Should send response with html response", async () => {
+    const viewTemplate = "main.html";
+    genericController.viewTemplate = viewTemplate;
+    genericController.sendResponse({
+      type: "html"
+    });
+    expect(res.render).toHaveBeenLastCalledWith(viewTemplate, {
+      success: true,
+      error: null
+    });
+  });
+
   it("Should call res.send with empty data array", async () => {
     await BaseController.handle[0](req, res, next);
-    expect(res.send).toHaveBeenCalledWith({ data: [] });
+    expect(res.send).toHaveBeenCalledWith({
+      data: [],
+      error: null,
+      success: true
+    });
   });
 });

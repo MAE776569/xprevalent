@@ -82,7 +82,7 @@ class UsersListController extends ApiListController {
 }
 ```
 
-To control the filter that is used to count documents and to fetch data from database; you can override `getQueryFilter()`.
+To control the filter that is used to count documents and to fetch data from database, you can override `getQueryFilter()`.
 
 ```javascript
 class UsersListController extends ApiListController {

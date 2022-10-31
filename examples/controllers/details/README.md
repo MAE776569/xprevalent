@@ -9,19 +9,19 @@ class UserDetailsController extends ApiDetailsController {
 }
 ```
 
-To control the parameter used to fetch object from database you can override `idParam`.
+To control the parameter used to fetch the document from database you can override `idParam`.
 
 ```javascript
 class UserDetailsController extends ApiDetailsController {
   model = userModel;
-  // this will use req.params.userId to fetch object from database
+  // this will use req.params.userId to fetch the document from database
   idParam = "userId";
 }
 ```
 
 To controller how the id is validated you can override `validateIdParam()` and return a boolean indicating if the id is valid or not.
 
-If the id is not valid the controller will return 404.
+If the id is not valid the controller will return `404`.
 
 ```javascript
 class UserDetailsController extends ApiDetailsController {
@@ -33,7 +33,7 @@ class UserDetailsController extends ApiDetailsController {
 }
 ```
 
-To get a single object by filter, you can set `findOne` to true and override `getQueryFilter()` to return the filter used to get the object.
+To get a single document using query filter, you can set `findOne` to true and override `getQueryFilter()` to return the filter used to get the document.
 
 ```javascript
 class UserDetailsController extends ApiDetailsController {

@@ -55,7 +55,7 @@ By default the controller will return a pagination object in the response with t
 return { count, totalPages, page, limit, nextPage, previousPage };
 ```
 
-if you want to control what data is returned in this object you can override `getPaginationMeta()`.
+To control what data is returned in this object you can override `getPaginationMeta()`.
 
 ```javascript
 class UsersListController extends ApiListController {

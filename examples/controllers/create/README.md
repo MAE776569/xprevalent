@@ -15,7 +15,7 @@ By default the inserted document will be the result of the validation returned f
 
 If the data is not valid `422` status code will be returned with error object in the response.
 
-If you want to customize the inserted document or control the values of the document fields, you can override `getDocument()`.
+To customize the inserted document or control the values of the document fields, you can override `getDocument()`.
 
 ```javascript
 class UserCreateController extends ApiCreateController {

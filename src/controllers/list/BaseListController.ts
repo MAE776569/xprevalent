@@ -80,6 +80,7 @@ class BaseListController extends BaseController {
       previousPage:
         page > 1 ? (page < lastPage ? page - 1 : lastPage - 1) : null
     };
+
     return meta;
   }
 

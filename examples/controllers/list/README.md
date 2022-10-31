@@ -23,7 +23,9 @@ To override the default parameters, you can set `paginateBy` object.
 
 ```javascript
 class UsersListController extends ApiListController {
-  ...
+  model = userModel;
+  paginate = true;
+
   paginateBy = {
     // use req.query.cursor to get page number
     pageParam: "cursor",
@@ -31,7 +33,7 @@ class UsersListController extends ApiListController {
     limitParam: "offset",
     // use a default limit of 30 if limit is not provided
     defaultLimit: 30
-  }
+  };
 }
 ```
 
@@ -49,15 +51,8 @@ class UsersListController extends ApiListController {
 
 By default the controller will return a pagination object in the response with the following structure:
 
-```
-{
-  count,
-  totalPages,
-  page,
-  limit,
-  nextPage,
-  previousPage
-}
+```javascript
+return { count, totalPages, page, limit, nextPage, previousPage };
 ```
 
 if you want to control what data is returned in this object you can override `getPaginationMeta()`.
@@ -68,16 +63,20 @@ class UsersListController extends ApiListController {
   async getPaginationMeta() {
     const count = await this.getDocumentsCount();
     const { page, limit } = this.getPaginationParams();
-    const totalPages = Math.ceil(count / limit);
+    const lastPage = Math.ceil(count / limit);
+    // need to set this.totalPages as it will be used in getQueryResult
+    this.totalPages = lastPage > 0 ? lastPage : 1;
 
     const meta = {
       count,
-      totalPages,
-      page: ...,
+      totalPages: lastPage,
+      page: page < lastPage ? page : this.totalPages,
       limit,
-      nextPage: ...,
-      previousPage: ...
+      nextPage: page < lastPage ? page + 1 : null,
+      previousPage:
+        page > 1 ? (page < lastPage ? page - 1 : lastPage - 1) : null
     };
+
     return meta;
   }
 }
@@ -101,13 +100,17 @@ To control how data is fetched from database you can override `getQueryResult()`
 ```javascript
 class UsersListController extends ApiListController {
   ...
-  async getQueryResult() {
-    const queryFilter = this.getQueryFilter();
-    const users = await this.model.find({
-      ...queryFilter,
-      isActive: { $eq: true }
-    });
-    return users;
+  getQueryResult() {
+    const { page, limit } = this.getPaginationParams();
+    return this.model.aggregate([
+      {
+        $skip: (page - 1) * limit
+      },
+      {
+        $limit: limit
+      }
+      ...
+    ]);
   }
 }
 ```
@@ -119,8 +122,8 @@ class UsersListController extends ApiListController {
   ...
   async getContextObject() {
     const context = await super.getContextObject();
-    // get any data you want
-    const additionalData = await getAdditionalData();
+    // get any data you want to return in response
+    const additionalData = this.getAdditionalData();
     return {
       ...context,
       ...additionalData

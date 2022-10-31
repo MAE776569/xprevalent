@@ -3,7 +3,7 @@ const userModel = require("models/user");
 
 class UserDetailsController extends ApiDetailsController {
   model = userModel;
-  // this will use req.params.userId to fetch object from database
+  // this will use req.params.userId to fetch the object from database
   idParam = "userId";
 
   validateIdParam() {

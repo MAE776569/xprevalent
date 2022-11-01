@@ -1,18 +1,18 @@
 import { NextFunction } from "express";
-import BaseEditController from "../../src/controllers/edit/BaseEditController";
+import BaseUpdateController from "../../src/controllers/update/BaseUpdateController";
 import mockRequest from "../mocks/mock-request";
 import mockResponse from "../mocks/mock-response";
 import mockModel from "../mocks/mock-model";
-import { ValidationSchema, validator } from "../../src/validators";
+import { ValidationSchema, schema } from "../../src/validator";
 
 const req = mockRequest({ body: {} });
 const res = mockResponse();
 const next: NextFunction = jest.fn();
-const editController: any = new BaseEditController(req, res, next);
+const editController: any = new BaseUpdateController(req, res, next);
 const validatorSchema = {
-  body: validator.object({
-    name: validator.string().required(),
-    email: validator.string().email().required()
+  body: schema.object({
+    name: schema.string().required(),
+    email: schema.string().email().required()
   })
 };
 const userValidationSchema: ValidationSchema = new ValidationSchema(
@@ -30,7 +30,7 @@ const successReq = mockRequest({
   body: user,
   params: { id: paramId }
 });
-const editControllerWithRes: any = new BaseEditController(
+const editControllerWithRes: any = new BaseUpdateController(
   successReq,
   mockResponse(),
   next

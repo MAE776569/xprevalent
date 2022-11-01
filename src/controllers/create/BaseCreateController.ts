@@ -1,7 +1,7 @@
 import { Model, Document } from "mongoose";
 import { FillableObject } from "../../types/controllers/generic";
 import { ValidationObject } from "../../types/validation/schema";
-import { ValidationSchema } from "../../validators";
+import { ValidationSchema } from "../../validator";
 import BaseController from "../generic/BaseController";
 
 class BaseCreateController extends BaseController {

@@ -1,6 +1,6 @@
 import { NextFunction } from "express";
 import SingleObjectController from "../../src/controllers/generic/SingleObjectController";
-import { ValidationSchema, validator } from "../../src/validators";
+import { ValidationSchema, schema } from "../../src/validator";
 import mockRequest from "../mocks/mock-request";
 import mockResponse from "../mocks/mock-response";
 
@@ -57,8 +57,8 @@ describe("Should validate id param", () => {
 describe("Should get validation result", () => {
   it("Should first initialize validation result", () => {
     singleObjectController.validationSchema = new ValidationSchema({
-      query: validator.object({
-        name: validator.string().notRequired()
+      query: schema.object({
+        name: schema.string().notRequired()
       })
     });
     expect(singleObjectController.validationResult).toBeDefined();

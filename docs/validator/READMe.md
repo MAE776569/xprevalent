@@ -33,7 +33,7 @@ const userSchema = {
 const validationSchema = new ValidationSchema(userSchema);
 ```
 
-## How to use in controllers
+## How to Use in Controllers
 
 In order to use validator in controllers, all you have to do is to set validation schema. and the controller will handle the validation automatically.
 
@@ -71,7 +71,7 @@ class UserUpdateController extends ApiUpdateController {
 }
 ```
 
-## How to validate data
+## How to Validate Data
 
 Validation schema validates the input using `validate()` which takes in the request object and validates it based on the different locations used in the validation schema.
 

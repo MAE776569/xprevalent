@@ -95,15 +95,6 @@ class BaseController {
   protected populatedFields?: string[];
 
   /**
-   * View template to be rendered
-   *
-   * @protected
-   * @type {string}
-   * @memberof BaseController
-   */
-  protected viewTemplate?: string;
-
-  /**
    * Validation schema
    *
    * @protected
@@ -180,7 +171,7 @@ class BaseController {
     message,
     error = null,
     body = {}
-  }: SendResponseInput) {
+  }: SendResponseInput): Response<any> {
     const response = {
       success: !error && success,
       message,
@@ -191,10 +182,8 @@ class BaseController {
     this.res.status(status);
     if (type === "json") {
       return this.res.json(response);
-    } else if (type === "html") {
-      return this.res.render(this.viewTemplate!, response);
     } else {
-      this.res.send(response);
+      return this.res.send(response);
     }
   }
 
@@ -209,10 +198,8 @@ class BaseController {
     try {
       const contextObject = await this.getContextObject();
       const resObject = { ...contextObject };
-      if (this.model) {
-        const queryResult = await this.getQueryResult();
-        resObject[this.queryObjectName!] = queryResult;
-      }
+      const queryResult = await this.getQueryResult();
+      resObject[this.queryObjectName!] = queryResult;
       return this.sendResponse({ type: "generic", body: resObject });
     } catch (err) {
       return this.next(err);

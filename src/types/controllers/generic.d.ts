@@ -8,7 +8,7 @@ export interface SortObject {
 }
 
 export interface SendResponseInput {
-  type?: "json" | "html" | "generic";
+  type?: "json" | "generic";
   success?: boolean;
   status?: number;
   message?: string;

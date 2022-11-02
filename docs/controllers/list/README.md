@@ -1,6 +1,6 @@
 # List Controller
 
-To list all documents:
+Used To list all documents optionally paginated.
 
 ```javascript
 class UsersListController extends ApiListController {

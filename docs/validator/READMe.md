@@ -63,7 +63,7 @@ const updateUserSchema = {
 
 ```javascript
 const { ValidationSchema } = require("xprevalent/validator");
-const { updateUserSchema } = require("schema/users.schema");
+const { updateUserSchema } = require("schemas/users.schema");
 
 class UserUpdateController extends ApiUpdateController {
   model = userModel;

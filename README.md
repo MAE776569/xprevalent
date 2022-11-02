@@ -1,18 +1,18 @@
 # xprevalent
 
-xprevalent is a library for creating express controllers. Define a controller and use with express router. Controllers are declarative and divides request handling to many stages.
+xprevalent is a library for creating express controllers. Define a controller and use with express router. Controllers are declarative and divides request handling into many stages.
 
 ## Table of Contents
 
-- [Generic Controller](##generic-controller)
-- [Validator](##validator)
-  - [How to Use in Controllers](###how-to-use-in-controllers)
-  - [How to Validate Data](###how-to-validate-data)
-- [List Controller](##list-controller)
-- [Details Controller](##details-controller)
-- [Create Controller](##create-controller)
-- [Update Controller](##update-controller)
-- [Delete Controller](##delete-controller)
+- [Generic Controller](#generic-controller)
+- [Validator](#validator)
+  - [How to Use in Controllers](#how-to-use-in-controllers)
+  - [How to Validate Data](#how-to-validate-data)
+- [List Controller](#list-controller)
+- [Details Controller](#details-controller)
+- [Create Controller](#create-controller)
+- [Update Controller](#update-controller)
+- [Delete Controller](#delete-controller)
 
 ## Generic Controller
 
@@ -139,7 +139,7 @@ const updateUserSchema = {
 
 ```javascript
 const { ValidationSchema } = require("xprevalent/validator");
-const { updateUserSchema } = require("schema/users.schema");
+const { updateUserSchema } = require("schemas/users.schema");
 
 class UserUpdateController extends ApiUpdateController {
   model = userModel;
@@ -203,7 +203,7 @@ console.log(validationResult.getErrors({ location: "body", name: "name" }));
 
 ## List Controller
 
-To list all documents:
+Used To list all documents optionally paginated.
 
 ```javascript
 class UsersListController extends ApiListController {

@@ -126,9 +126,10 @@ describe("Base controller should call next", () => {
         return Promise.reject();
       }
     }
-    const controllerObject: any = new Controller(req, res, next);
+    const nextFn: NextFunction = jest.fn();
+    const controllerObject: any = new Controller(req, res, nextFn);
     await controllerObject.handleRequest();
-    expect(next).toHaveBeenCalledTimes(1);
+    expect(nextFn).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -156,18 +157,6 @@ describe("Should send response with valid body", () => {
   it("Should send response with default json", async () => {
     genericController.sendResponse({});
     expect(res.json).toHaveBeenLastCalledWith({
-      success: true,
-      error: null
-    });
-  });
-
-  it("Should send response with html response", async () => {
-    const viewTemplate = "main.html";
-    genericController.viewTemplate = viewTemplate;
-    genericController.sendResponse({
-      type: "html"
-    });
-    expect(res.render).toHaveBeenLastCalledWith(viewTemplate, {
       success: true,
       error: null
     });

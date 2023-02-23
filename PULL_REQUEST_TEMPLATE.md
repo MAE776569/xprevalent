@@ -1,11 +1,12 @@
 Please, go through these steps before you submit a PR.
 
 1. Make sure that:
-    - [ ] Changes in a separate branch. Branches MUST have descriptive names that start with either the `fix/` or `feature/` prefixes. Good examples are: `fix/validation-issue` or `feature/base-controller`.
-    - [ ] Commit messages follows the standards.
-    - [ ] Only one commit (if not, squash them into one commit).
-    - [ ] `npm test` doesn't throw any error. If it does, fix them first.
-    - [ ] Added/Updated docs.
+
+   - [ ] Changes in a separate branch. Branches MUST have descriptive names that start with either the `fix/` or `feature/` prefixes. Good examples are: `fix/validation-issue` or `feature/base-controller`.
+   - [ ] Commit messages follows the standards.
+   - [ ] Only one commit (if not, squash them into one commit).
+   - [ ] `npm test` doesn't throw any error. If it does, fix them first.
+   - [ ] Added/Updated docs.
 
 2. After these steps, you're ready to open a pull request:
 
@@ -16,7 +17,7 @@ Please, go through these steps before you submit a PR.
 ---
 
 - **This PR is a:**
-  
+
   - [ ] Bug fix / Defect fix / Hotfix
   - [ ] Story / Task / Feature
   - [ ] Docs update

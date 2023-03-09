@@ -3,10 +3,6 @@
   "version": "1.0.1",
   "description": "The next level library for creating express controllers",
   "main": "dist/index.js",
-  "files": [
-    "src/**/*",
-    "dist/**/*"
-  ],
   "scripts": {
     "build": "tsc",
     "prettier:check": "prettier --check .",
@@ -21,7 +17,9 @@
   },
   "keywords": [
     "express",
-    "controller"
+    "controller",
+    "router",
+    "mongodb"
   ],
   "author": "Mohamed Ahmed <mohamed5qabeel@gmail.com>",
   "license": "MIT",
@@ -49,5 +47,6 @@
     "lodash": "^4.17.21",
     "validator": "^13.5.2",
     "yup": "^0.32.11"
-  }
+  },
+  "types": "./dist/index.d.ts"
 }

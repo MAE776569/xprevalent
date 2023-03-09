@@ -2,9 +2,21 @@
 
 xprevalent is a library for creating express controllers. Define a controller and use with express router. Controllers are declarative and divides request handling into many stages.
 
+## How to Install
+
+```javascript
+npm install xprevalent
+```
+
+## Docs
+
+1. For a detailed explanation on how to use: [/docs](https://github.com/MAE776569/xprevalent/tree/main/docs)
+2. For code examples: [/examples](https://github.com/MAE776569/xprevalent/tree/main/examples)
+
 ## Table of Contents
 
 - [Generic Controller](#generic-controller)
+- [How to Use with Express Router](#how-to-use-with-express-router)
 - [Validator](#validator)
   - [How to Use in Controllers](#how-to-use-in-controllers)
   - [How to Validate Data](#how-to-validate-data)
@@ -81,8 +93,13 @@ The validator is used to validate all the data passed to the controller.
 To use the validator you must create a validation schema using `ValidationSchema` class and pass a `schema` to it.
 
 ```javascript
-const { ValidationSchema } = require("xprevalent/validator");
-const validationSchema = new ValidationSchema(schema);
+const { ValidationSchema, schema } = require("xprevalent/validator");
+const userSchema = {
+  body: schema.object({
+    email: schema.string().email().required()
+  })
+};
+const validationSchema = new ValidationSchema(userSchema);
 ```
 
 The schema is an object that consists of three different keys. each key represent a request location:

@@ -93,7 +93,7 @@ The validator is used to validate all the data passed to the controller.
 To use the validator you must create a validation schema using `ValidationSchema` class and pass a `schema` to it.
 
 ```javascript
-const { ValidationSchema, schema } = require("xprevalent/validator");
+const { ValidationSchema, schema } = require("xprevalent");
 const userSchema = {
   body: schema.object({
     email: schema.string().email().required()
@@ -111,7 +111,7 @@ The schema is an object that consists of three different keys. each key represen
 The value of params, query and body is based on [yup](https://github.com/jquense/yup) validator library.
 
 ```javascript
-const { ValidationSchema, schema } = require("xprevalent/validator");
+const { ValidationSchema, schema } = require("xprevalent");
 const userSchema = {
   params: schema.object({
     id: schema.number().integer().positive().required()
@@ -145,7 +145,7 @@ It is better to create schemas into its own separate files and export it into co
 
 ```javascript
 // schemas/users.schema.js
-const { schema } = require("xprevalent/validator");
+const { schema } = require("xprevalent");
 
 const updateUserSchema = {
   body: schema.object({
@@ -155,7 +155,7 @@ const updateUserSchema = {
 ```
 
 ```javascript
-const { ValidationSchema } = require("xprevalent/validator");
+const { ValidationSchema } = require("xprevalent");
 const { updateUserSchema } = require("schemas/users.schema");
 
 class UserUpdateController extends ApiUpdateController {
@@ -177,7 +177,7 @@ The `validationSchema.validate(req)` returns an object that contains three metho
 
 ```javascript
 // schemas/users.schema.js
-const { ValidationSchema, schema } = require("xprevalent/validator");
+const { ValidationSchema, schema } = require("xprevalent");
 
 const updateUserSchema = {
   body: schema.object({

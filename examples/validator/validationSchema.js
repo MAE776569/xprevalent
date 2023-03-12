@@ -1,4 +1,4 @@
-const { ValidationSchema, schema } = require("xprevalent/validator");
+const { ValidationSchema, schema } = require("xprevalent");
 
 const userSchema = {
   params: schema.object({

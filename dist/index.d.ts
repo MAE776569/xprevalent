@@ -4,6 +4,7 @@ import ApiDetailsController from "./controllers/details/ApiDetailsController";
 import ApiCreateController from "./controllers/create/ApiCreateController";
 import ApiUpdateController from "./controllers/update/ApiUpdateController";
 import ApiDeleteController from "./controllers/delete/ApiDeleteController";
+import { ValidationSchema, schema } from "./validator";
 export declare const ApiController: typeof BaseController;
 export declare const ApiListController: typeof BaseListController;
-export { ApiDetailsController, ApiCreateController, ApiUpdateController, ApiDeleteController };
+export { ApiDetailsController, ApiCreateController, ApiUpdateController, ApiDeleteController, ValidationSchema, schema };

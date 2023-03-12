@@ -1,5 +1,4 @@
-const { ApiUpdateController } = require("xprevalent");
-const { ValidationSchema } = require("xprevalent/validator");
+const { ApiUpdateController, ValidationSchema } = require("xprevalent");
 const userModel = require("models/user");
 const { updateUserSchema } = require("schemas/user");
 

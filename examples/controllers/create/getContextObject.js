@@ -1,5 +1,4 @@
-const { ApiCreateController } = require("xprevalent");
-const { ValidationSchema } = require("xprevalent/validator");
+const { ApiCreateController, ValidationSchema } = require("xprevalent");
 const userModel = require("models/user");
 const { createUserSchema } = require("schemas/user");
 

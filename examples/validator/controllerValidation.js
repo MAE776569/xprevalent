@@ -1,5 +1,5 @@
 // schemas/users.schema.js
-const { schema } = require("xprevalent/validator");
+const { schema } = require("xprevalent");
 
 const updateUserSchema = {
   body: schema.object({
@@ -8,7 +8,7 @@ const updateUserSchema = {
 };
 
 // controllers/users.update.controller.js
-const { ValidationSchema } = require("xprevalent/validator");
+const { ValidationSchema } = require("xprevalent");
 const { ApiUpdateController } = require("xprevalent");
 const userModel = require("models/user");
 

@@ -1,6 +1,6 @@
 {
   "name": "xprevalent",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "The next level library for creating express controllers",
   "main": "dist/index.js",
   "scripts": {

@@ -29,8 +29,8 @@ class SingleObjectController extends BaseController_1.default {
         });
         const validationResult = validationSchema.validate(this.req);
         return validationResult.hasError({
-            name: this.idParam,
-            location: "params"
+            location: "params",
+            name: this.idParam
         });
     }
     getQueryFilter() {

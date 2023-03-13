@@ -45,7 +45,6 @@
   },
   "dependencies": {
     "lodash": "^4.17.21",
-    "validator": "^13.5.2",
     "yup": "^0.32.11"
   },
   "types": "./dist/index.d.ts"

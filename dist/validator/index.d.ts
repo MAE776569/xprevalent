@@ -1,3 +1,3 @@
 import ValidationSchema from "./ValidationSchema";
-import * as validator from "./yupValidator";
+import * as validator from "yup";
 export { ValidationSchema, validator as schema };

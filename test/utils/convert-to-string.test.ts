@@ -35,4 +35,8 @@ describe("Should test converting objects to string", () => {
       Object.getPrototypeOf(genericFunction).toString.call(genericFunction)
     );
   });
+
+  it("Should convert undefined to string", () => {
+    expect(convertToString(undefined)).toBe("");
+  });
 });

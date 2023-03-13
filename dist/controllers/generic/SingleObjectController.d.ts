@@ -6,7 +6,7 @@ declare class SingleObjectController extends BaseController {
     protected validationSchema: ValidationSchema;
     private validation;
     protected get validationResult(): ValidationObject;
-    protected validateIdParam(): boolean;
+    protected idParamIsInvalid(): boolean;
     protected getQueryFilter(): {};
 }
 export = SingleObjectController;

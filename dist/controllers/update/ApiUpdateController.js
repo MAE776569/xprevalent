@@ -16,7 +16,7 @@ class ApiUpdateController extends BaseUpdateController_1.default {
     handleRequest() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                if (this.validateIdParam() && !this.updateOne) {
+                if (this.idParamIsInvalid() && !this.updateOne) {
                     return this.sendResponse({
                         success: false,
                         status: 404,

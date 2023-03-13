@@ -16,7 +16,7 @@ class ApiDetailsController extends BaseDetailsController_1.default {
     handleRequest() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                if (this.validateIdParam() && !this.findOne) {
+                if (this.idParamIsInvalid() && !this.findOne) {
                     return this.sendResponse({
                         success: false,
                         status: 404,

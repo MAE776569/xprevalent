@@ -8,7 +8,7 @@ class UserDeleteController extends ApiDeleteController {
 
   idParamIsInvalid() {
     const id = this.req.params[this.idParam];
-    return Number.isInteger(parseInt(id));
+    return !Number.isInteger(parseInt(id));
   }
 }
 

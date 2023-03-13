@@ -28,8 +28,8 @@ class SingleObjectController extends BaseController {
     });
     const validationResult = validationSchema.validate(this.req);
     return validationResult.hasError({
-      name: this.idParam,
-      location: "params"
+      location: "params",
+      name: this.idParam
     });
   }
 

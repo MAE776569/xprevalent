@@ -8,7 +8,7 @@ class UserUpdateController extends ApiUpdateController {
   // this will use req.params.userId to fetch the document from database
   idParam = "userId";
 
-  validateIdParam() {
+  idParamIsInvalid() {
     const id = this.req.params[this.idParam];
     return Number.isInteger(parseInt(id));
   }

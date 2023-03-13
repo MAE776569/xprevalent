@@ -19,14 +19,14 @@ class UserDetailsController extends ApiDetailsController {
 }
 ```
 
-To controller how the id is validated you can override `validateIdParam()` and return a boolean indicating if the id is valid or not.
+To controller how the id is validated you can override `idParamIsInvalid()` and return a boolean indicating if the id is valid or not.
 
 If the id is not valid the controller will return `404`.
 
 ```javascript
 class UserDetailsController extends ApiDetailsController {
   ...
-  validateIdParam() {
+  idParamIsInvalid() {
     const id = this.req.params[this.idParam];
     return Number.isInteger(parseInt(id));
   }

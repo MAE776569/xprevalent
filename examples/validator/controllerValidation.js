@@ -8,8 +8,7 @@ const updateUserSchema = {
 };
 
 // controllers/users.update.controller.js
-const { ValidationSchema } = require("xprevalent");
-const { ApiUpdateController } = require("xprevalent");
+const { ApiUpdateController, ValidationSchema } = require("xprevalent");
 const userModel = require("models/user");
 
 class UserUpdateController extends ApiUpdateController {

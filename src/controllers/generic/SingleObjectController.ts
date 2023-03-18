@@ -16,16 +16,20 @@ class SingleObjectController extends BaseController {
     return this.validation;
   }
 
-  protected validateIdParam(): boolean {
+  protected idParamIsInvalid(): boolean {
     const validationSchema = new ValidationSchema({
       params: schema.object({
-        [this.idParam]: schema.string().mongoId()
+        [this.idParam]: schema
+          .string()
+          .matches(/^(0x|0h)?[0-9A-F]+$/i)
+          .length(24)
+          .required()
       })
     });
     const validationResult = validationSchema.validate(this.req);
     return validationResult.hasError({
-      name: this.idParam,
-      location: "params"
+      location: "params",
+      name: this.idParam
     });
   }
 

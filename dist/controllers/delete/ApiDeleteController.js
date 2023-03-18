@@ -16,7 +16,7 @@ class ApiDeleteController extends BaseDeleteController_1.default {
     handleRequest() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                if (this.validateIdParam() && !this.deleteOne) {
+                if (this.idParamIsInvalid() && !this.deleteOne) {
                     return this.sendResponse({
                         success: false,
                         status: 404,

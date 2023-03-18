@@ -3,6 +3,9 @@
   "version": "1.0.3",
   "description": "The next level library for creating express controllers",
   "main": "dist/index.js",
+  "files": [
+    "dist/**/*"
+  ],
   "scripts": {
     "build": "tsc",
     "prettier:check": "prettier --check .",
@@ -45,7 +48,6 @@
   },
   "dependencies": {
     "lodash": "^4.17.21",
-    "validator": "^13.5.2",
     "yup": "^0.32.11"
   },
   "types": "./dist/index.d.ts"

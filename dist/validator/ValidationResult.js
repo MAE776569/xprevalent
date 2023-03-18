@@ -29,8 +29,7 @@ class ValidationResult {
         return this.values;
     }
     getErrors({ name, location }) {
-        var _a;
-        const errorsInLocation = (_a = (location ? this.errors[location] : this.errors)) !== null && _a !== void 0 ? _a : {};
+        const errorsInLocation = location ? this.errors[location] : this.errors;
         if (name) {
             return errorsInLocation[name];
         }

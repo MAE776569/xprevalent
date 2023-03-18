@@ -25,5 +25,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.schema = exports.ValidationSchema = void 0;
 const ValidationSchema_1 = __importDefault(require("./ValidationSchema"));
 exports.ValidationSchema = ValidationSchema_1.default;
-const validator = __importStar(require("./yupValidator"));
+const validator = __importStar(require("yup"));
 exports.schema = validator;

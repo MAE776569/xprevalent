@@ -15,9 +15,9 @@ function convertToString(value, deep = true) {
         }
         return value.toString();
     }
-    else if (value == null || (isNaN(value) && !value.length)) {
+    else {
+        // (value == null || (isNaN(value) && !value.length))
         return "";
     }
-    return String(value);
 }
 module.exports = convertToString;

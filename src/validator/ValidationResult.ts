@@ -37,8 +37,7 @@ class ValidationResult {
     name,
     location
   }: ValidationResultInput): ValidationErrors {
-    const errorsInLocation =
-      (location ? this.errors[location] : this.errors) ?? {};
+    const errorsInLocation = location ? this.errors[location] : this.errors;
     if (name) {
       return errorsInLocation[name];
     }

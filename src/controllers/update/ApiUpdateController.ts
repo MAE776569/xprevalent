@@ -3,7 +3,7 @@ import BaseUpdateController from "./BaseUpdateController";
 class ApiUpdateController extends BaseUpdateController {
   protected async handleRequest() {
     try {
-      if (this.validateIdParam() && !this.updateOne) {
+      if (this.idParamIsInvalid() && !this.updateOne) {
         return this.sendResponse({
           success: false,
           status: 404,

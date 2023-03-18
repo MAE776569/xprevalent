@@ -12,16 +12,16 @@ class UserDeleteController extends ApiDeleteController {
 }
 ```
 
-To controller how the id is validated you can override `validateIdParam()` and return a boolean indicating if the id is valid or not.
+To controller how the id is validated you can override `idParamIsInvalid()` and return a boolean indicating if the id is valid or not.
 
 If the id is not valid the controller will return `404`.
 
 ```javascript
 class UserDeleteController extends ApiDeleteController {
   ...
-  validateIdParam() {
+  idParamIsInvalid() {
     const id = this.req.params[this.idParam];
-    return Number.isInteger(parseInt(id));
+    return !Number.isInteger(parseInt(id));
   }
 }
 ```
@@ -47,7 +47,7 @@ To control how the document is deleted you can override `getQueryResult()`.
 class UserDeleteController extends ApiDeleteController {
   ...
   getQueryResult() {
-     const id = this.req.params[this.idParam];
+    const id = this.req.params[this.idParam];
     return this.model.findByIdAndDelete(id);
   }
 }

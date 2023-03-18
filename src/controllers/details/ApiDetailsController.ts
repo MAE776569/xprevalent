@@ -3,7 +3,7 @@ import BaseDetailsController from "./BaseDetailsController";
 class ApiDetailsController extends BaseDetailsController {
   protected async handleRequest() {
     try {
-      if (this.validateIdParam() && !this.findOne) {
+      if (this.idParamIsInvalid() && !this.findOne) {
         return this.sendResponse({
           success: false,
           status: 404,

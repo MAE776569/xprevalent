@@ -10,11 +10,10 @@ function convertToString(value: any, deep = true): string {
       return Object.getPrototypeOf(value).toString.call(value);
     }
     return value.toString();
-  } else if (value == null || (isNaN(value) && !value.length)) {
+  } else {
+    // (value == null || (isNaN(value) && !value.length))
     return "";
   }
-
-  return String(value);
 }
 
 export = convertToString;

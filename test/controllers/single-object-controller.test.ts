@@ -46,11 +46,16 @@ describe("Should have query filter", () => {
 
 describe("Should validate id param", () => {
   it("Should return validation error if id param is not valid", () => {
-    expect(singleObjectController.validateIdParam()).toBe(true);
+    const objectController: any = new SingleObjectController(
+      mockRequest({}),
+      res,
+      next
+    );
+    expect(objectController.idParamIsInvalid()).toBe(true);
   });
 
   it("Should pass id param validation", () => {
-    expect(singleObjectControllerWithQuery.validateIdParam()).toBe(false);
+    expect(singleObjectControllerWithQuery.idParamIsInvalid()).toBe(false);
   });
 });
 

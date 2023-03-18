@@ -3,7 +3,7 @@ import BaseDeleteController from "./BaseDeleteController";
 class ApiDeleteController extends BaseDeleteController {
   protected async handleRequest() {
     try {
-      if (this.validateIdParam() && !this.deleteOne) {
+      if (this.idParamIsInvalid() && !this.deleteOne) {
         return this.sendResponse({
           success: false,
           status: 404,

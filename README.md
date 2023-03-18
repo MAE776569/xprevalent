@@ -660,7 +660,7 @@ To control how the document is deleted you can override `getQueryResult()`.
 class UserDeleteController extends ApiDeleteController {
   ...
   getQueryResult() {
-     const id = this.req.params[this.idParam];
+    const id = this.req.params[this.idParam];
     return this.model.findByIdAndDelete(id);
   }
 }
